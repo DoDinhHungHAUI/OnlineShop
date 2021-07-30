@@ -1,4 +1,6 @@
 ﻿using OnlineShop.Model.Abstract;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
@@ -35,5 +37,8 @@ namespace OnlineShop.Model.Models
 
         [ForeignKey("CategoryID")]
         public virtual PostCategories PostCategories { set; get; }
+
+        public virtual IEnumerable<PostTag> PostTags { set; get; }
+
     }
 }
