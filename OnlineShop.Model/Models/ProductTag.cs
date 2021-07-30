@@ -12,9 +12,17 @@ namespace OnlineShop.Model.Models
     public class ProductTag
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column(Order = 1)]
+
         public int ProductID { get; set; }
         [Key]
+        [Column(TypeName = "varchar" , Order =2)]
         public string TagID { get; set; }
+
+        [ForeignKey("ProductID")]
+        public virtual Product Product { get; set; }
+        [ForeignKey("TagID")]
+        public virtual Tag Tag { get; set; }
+
     }
 }

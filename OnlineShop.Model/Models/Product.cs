@@ -24,7 +24,8 @@ namespace OnlineShop.Model.Models
         public int CategoryID { get; set; }
         [MaxLength(256)]
         public string Image { get; set; }
-        public XElement MoreImages { get; set; }
+        [Column(TypeName = "xml")]
+        public string MoreImages { get; set; }
 
         public Decimal Price { get; set; }
         public Decimal? PromotionPrice { get; set; }
