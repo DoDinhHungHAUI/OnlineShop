@@ -12,31 +12,40 @@ namespace OnlineShop.Service
 
     public interface IPostCategoryService
     {
-        void Add(PostCategories postCategory);
+        PostCategories Add(PostCategories postCategory);
+
         void Update(PostCategories postCategory);
-        void Delete(int id);
+
+        PostCategories Delete(int id);
+
         IEnumerable<PostCategories> GetAll();
+
         IEnumerable<PostCategories> GetAllByParentId(int parentId);
-        PostCategories getById(int id);
+
+        PostCategories GetById(int id);
+
+        void Save();
     }
 
     public class PostCategoryService : IPostCategoryService
     {
-        IPostCategoryRepository _postCategoryRepository;
-        IUnitOfWork _unitOfWork;
+        private IPostCategoryRepository _postCategoryRepository;
+        private IUnitOfWork _unitOfWork;
+
         public PostCategoryService(IPostCategoryRepository postCategoryRepository, IUnitOfWork unitOfWork)
         {
             this._postCategoryRepository = postCategoryRepository;
             this._unitOfWork = unitOfWork;
         }
-        public void Add(PostCategories postCategory)
+
+        public PostCategories Add(PostCategories postCategory)
         {
-            _postCategoryRepository.Add(postCategory);
+            return _postCategoryRepository.Add(postCategory);
         }
 
-        public void Delete(int id)
+        public PostCategories Delete(int id)
         {
-            _postCategoryRepository.Delete(id);
+            return _postCategoryRepository.Delete(id);
         }
 
         public IEnumerable<PostCategories> GetAll()
@@ -49,9 +58,14 @@ namespace OnlineShop.Service
             return _postCategoryRepository.GetMulti(x => x.Status && x.ParentID == parentId);
         }
 
-        public PostCategories getById(int id)
+        public PostCategories GetById(int id)
         {
             return _postCategoryRepository.GetSingleById(id);
+        }
+
+        public void Save()
+        {
+            _unitOfWork.Commit();
         }
 
         public void Update(PostCategories postCategory)
