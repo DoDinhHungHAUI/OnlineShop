@@ -7,13 +7,13 @@ namespace OnlineShop.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class ErrorTable : IMigrationMetadata
+    public sealed partial class changeKey : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ErrorTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(changeKey));
         
         string IMigrationMetadata.Id
         {
-            get { return "202107310333013_ErrorTable"; }
+            get { return "202108020852015_changeKey"; }
         }
         
         string IMigrationMetadata.Source
