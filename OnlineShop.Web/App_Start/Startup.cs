@@ -2,6 +2,10 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
 using OnlineShop.Data;
@@ -53,8 +57,9 @@ namespace OnlineShop.Web.App_Start
                 .Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces().InstancePerRequest();
 
+
             // Services
-            builder.RegisterAssemblyTypes(typeof(PostCategoryService).Assembly)
+            builder.RegisterAssemblyTypes(typeof(ProductCategoryService).Assembly)
                .Where(t => t.Name.EndsWith("Service"))
                .AsImplementedInterfaces().InstancePerRequest();
 
@@ -63,5 +68,32 @@ namespace OnlineShop.Web.App_Start
 
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver((IContainer)container); //Set the WebApi DependencyResolver
         }
+
+       // public void ConfigureServices(IServiceCollection services)
+       // {
+       //     services.AddCors(options =>
+       //     {
+       //         options.AddPolicy("AllowAllHeaders",
+       //               builder =>
+       //               {
+       //                   builder.AllowAnyOrigin()
+       //                          .AllowAnyHeader()
+       //                          .AllowAnyMethod();
+       //               });
+       //     });
+
+
+
+       // }
+       //public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+       // {
+       //     // Shows UseCors with named policy.
+       //     app.UseCors("AllowAllHeaders");
+       //     app.UseCors(options =>
+       //     options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+       //     app.UseMvc();
+       // }
     }
 }
+     
+

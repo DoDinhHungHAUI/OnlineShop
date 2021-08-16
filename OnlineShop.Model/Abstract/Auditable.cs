@@ -24,9 +24,5 @@ namespace OnlineShop.Model.Abstract
 
         public bool Status { set; get; }
 
-        
-
-       
-
     }
 }

@@ -9,11 +9,11 @@ namespace OnlineShop.Data.Repositories
     {
         IEnumerable<ProductCategory> GetByAlias(string alias);
     }
-    public class ProductCategoryRespository : RepositoryBase<ProductCategory>, IProductCategoryRepository
-    {
-        public ProductCategoryRespository(IDbFactory dbFactory) : base(dbFactory)
-        {
 
+    public class ProductCategoryRepository : RepositoryBase<ProductCategory>, IProductCategoryRepository
+    {
+        public ProductCategoryRepository(IDbFactory dbFactory): base(dbFactory)
+        {
         }
 
         public IEnumerable<ProductCategory> GetByAlias(string alias)
@@ -22,3 +22,4 @@ namespace OnlineShop.Data.Repositories
         }
     }
 }
+ 

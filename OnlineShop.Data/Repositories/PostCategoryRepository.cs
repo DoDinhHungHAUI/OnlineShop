@@ -3,8 +3,9 @@ using OnlineShop.Model.Models;
 
 namespace OnlineShop.Data.Repositories
 {
-    public interface IPostCategoryRepository : IRepository<PostCategories>
+    public interface IPostCategoryRepository : IRepository<PostCategories>//Nó sẽ kết thừa hết các cái phương thức của IRepository
     {
+      
     }
 
     public class PostCategoryRepository : RepositoryBase<PostCategories>, IPostCategoryRepository
@@ -12,5 +13,7 @@ namespace OnlineShop.Data.Repositories
         public PostCategoryRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
+        
+
     }
 }

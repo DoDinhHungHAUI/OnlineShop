@@ -38,6 +38,7 @@ namespace OnlineShop.Web.Api
                 return response;
             });
         }
+
         [Route("add")]
         public HttpResponseMessage Post(HttpRequestMessage request, PostCategoryViewModel postCategoryVm)
         {
@@ -102,6 +103,7 @@ namespace OnlineShop.Web.Api
 
                     response = request.CreateResponse(HttpStatusCode.OK);
                 }
+
                 return response;
             });
         }
