@@ -199,6 +199,10 @@
     <Compile Include="Migrations\202108020852015_changeKey.designer.cs">
       <DependentUpon>202108020852015_changeKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108170128490_AddTagField.cs" />
+    <Compile Include="Migrations\202108170128490_AddTagField.designer.cs">
+      <DependentUpon>202108170128490_AddTagField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OnlineShopDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -244,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108020852015_changeKey.resx">
       <DependentUpon>202108020852015_changeKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108170128490_AddTagField.resx">
+      <DependentUpon>202108170128490_AddTagField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

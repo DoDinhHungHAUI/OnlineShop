@@ -37,11 +37,15 @@ namespace OnlineShop.Model.Models
         public bool? HomeFlag { set; get; }
         public bool? HotFlag { set; get; }
         public int? ViewCount { get; set; }
+        public string Tags { set; get; }
 
         [ForeignKey("CategoryID")]
         public virtual ProductCategory ProductCategory { set; get; }
 
         //public virtual IEquatable<Tag> Tags { get; set; }
+
+
+
 
     }
 }

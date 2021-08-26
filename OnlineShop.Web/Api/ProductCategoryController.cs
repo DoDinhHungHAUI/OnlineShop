@@ -12,6 +12,8 @@ using OnlineShop.Web.infrastructure.Core;
 using OnlineShop.Web.Models;
 using OnlineShop.Web.infrastructure.Extensions;
 using Microsoft.AspNetCore.Cors;
+using System.Web;
+using System.IO;
 
 namespace OnlineShop.Web.Api
 {
@@ -74,6 +76,8 @@ namespace OnlineShop.Web.Api
                 else
                 {
                     var newProductCategory = new ProductCategory();
+
+                  
                     newProductCategory.UpdateProductCategory(productCategoryVM);
                     newProductCategory.CreatedDate = DateTime.Now;
                     _productCategoryService.Add(newProductCategory);
