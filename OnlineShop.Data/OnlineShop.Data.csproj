@@ -203,6 +203,14 @@
     <Compile Include="Migrations\202108170128490_AddTagField.designer.cs">
       <DependentUpon>202108170128490_AddTagField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108280738483_AddContentToSlide.cs" />
+    <Compile Include="Migrations\202108280738483_AddContentToSlide.designer.cs">
+      <DependentUpon>202108280738483_AddContentToSlide.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108300232203_addQualityToProduct.cs" />
+    <Compile Include="Migrations\202108300232203_addQualityToProduct.designer.cs">
+      <DependentUpon>202108300232203_addQualityToProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OnlineShopDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -251,6 +259,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108170128490_AddTagField.resx">
       <DependentUpon>202108170128490_AddTagField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108280738483_AddContentToSlide.resx">
+      <DependentUpon>202108280738483_AddContentToSlide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108300232203_addQualityToProduct.resx">
+      <DependentUpon>202108300232203_addQualityToProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

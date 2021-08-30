@@ -37,6 +37,8 @@ namespace OnlineShop.Model.Models
         public bool? HomeFlag { set; get; }
         public bool? HotFlag { set; get; }
         public int? ViewCount { get; set; }
+
+        public int? Quality { get; set; }
         public string Tags { set; get; }
 
         [ForeignKey("CategoryID")]

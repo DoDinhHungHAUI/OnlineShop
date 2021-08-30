@@ -41,6 +41,7 @@ namespace OnlineShop.Web.Models
         public bool Status { set; get; }
 
         public string Tags { get; set; }
+        public int Quality { get; set; }
 
         public virtual ProductCategoryViewModel ProductCategory { set; get; }
     }

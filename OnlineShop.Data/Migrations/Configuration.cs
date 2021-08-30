@@ -20,8 +20,10 @@
         {
             //  This method will be called after migrating to the latest version.
             CreateProductCategorySample(context);
+            CreateSlide(context);
 
-            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new OnlineShopDbContext()));
+
+            /*var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new OnlineShopDbContext()));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new OnlineShopDbContext()));
 
             var user = new ApplicationUser()
@@ -42,7 +44,7 @@
 
             var adminUser = manager.FindByEmail("hungmien0411@gmail.com");
 
-            manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
+            manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });*/
 
 
 
@@ -65,7 +67,33 @@
             }    
         }
 
-
+        private void CreateSlide(OnlineShopDbContext context)
+        {
+            if (context.Slides.Count() == 0)
+            {
+                List<Slide> listSlide = new List<Slide>()
+                {
+                    new Slide()
+                    {
+                        Name = "Slide 1",
+                        DisplayOrder = 1,
+                        Status = true,
+                        Url = "#",
+                        Image = "~/Assets/client/images/1.png"
+                    },
+                    new Slide()
+                    {
+                        Name = "Slide 2",
+                        DisplayOrder = 2,
+                        Status = true,
+                        Url = "#",
+                        Image = "~/Assets/client/images/2.png"
+                    }
+                };
+                context.Slides.AddRange(listSlide);
+                context.SaveChanges();
+            }
+        }
 
     }
 }

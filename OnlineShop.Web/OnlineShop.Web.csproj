@@ -170,6 +170,9 @@
     <Reference Include="Microsoft.Owin, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.2.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.4.2.0\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
@@ -315,19 +318,27 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="infrastructure\Core\ApiControllerBase.cs" />
+    <Compile Include="infrastructure\Core\PaginationSet.cs" />
     <Compile Include="infrastructure\Extensions\EntityExtensions.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\FooterViewModel.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\PostCategoryViewModel.cs" />
     <Compile Include="Models\PostTagViewModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\ProductCategoryViewModel.cs" />
     <Compile Include="Models\ProductTagViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\SlideViewModel.cs" />
     <Compile Include="Models\TagViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -384,6 +395,101 @@
     <Content Include="Assets\admin\js\pages\dashboard.js" />
     <Content Include="Assets\admin\js\pages\dashboard2.js" />
     <Content Include="Assets\admin\js\pages\dashboard3.js" />
+    <Content Include="Assets\Client2\css\bootstrap-responsive.css" />
+    <Content Include="Assets\Client2\css\bootstrap-responsive.min.css" />
+    <Content Include="Assets\Client2\css\bootstrap.css" />
+    <Content Include="Assets\Client2\css\bootstrap.min.css" />
+    <Content Include="Assets\Client2\ico\favicon.ico" />
+    <Content Include="Assets\Client2\img\1.png" />
+    <Content Include="Assets\Client2\img\2.png" />
+    <Content Include="Assets\Client2\img\3.png" />
+    <Content Include="Assets\Client2\img\4.png" />
+    <Content Include="Assets\Client2\img\5.png" />
+    <Content Include="Assets\Client2\img\6.png" />
+    <Content Include="Assets\Client2\img\a.jpg" />
+    <Content Include="Assets\Client2\img\ax.png" />
+    <Content Include="Assets\Client2\img\b.jpg" />
+    <Content Include="Assets\Client2\img\bootstrap-ecommerce-templates.PNG" />
+    <Content Include="Assets\Client2\img\bootstrap-ring.png" />
+    <Content Include="Assets\Client2\img\bootstrap-template.png" />
+    <Content Include="Assets\Client2\img\bootstrap-templates.png" />
+    <Content Include="Assets\Client2\img\bootstrappage_shop.png" />
+    <Content Include="Assets\Client2\img\bootstrap_free-ecommerce.png" />
+    <Content Include="Assets\Client2\img\c.jpg" />
+    <Content Include="Assets\Client2\img\carousel1.png" />
+    <Content Include="Assets\Client2\img\carousel3.png" />
+    <Content Include="Assets\Client2\img\d.jpg" />
+    <Content Include="Assets\Client2\img\disc.png" />
+    <Content Include="Assets\Client2\img\e.jpg" />
+    <Content Include="Assets\Client2\img\f.jpg" />
+    <Content Include="Assets\Client2\img\g.jpg" />
+    <Content Include="Assets\Client2\img\h.jpg" />
+    <Content Include="Assets\Client2\img\i.jpg" />
+    <Content Include="Assets\Client2\img\j.jpg" />
+    <Content Include="Assets\Client2\img\logo-bootstrap-shoping-cart.png" />
+    <Content Include="Assets\Client2\img\maestro.png" />
+    <Content Include="Assets\Client2\img\mc.png" />
+    <Content Include="Assets\Client2\img\new.png" />
+    <Content Include="Assets\Client2\img\paypal.jpg" />
+    <Content Include="Assets\Client2\img\pp.png" />
+    <Content Include="Assets\Client2\img\s.png" />
+    <Content Include="Assets\Client2\img\shop-cart.PNG" />
+    <Content Include="Assets\Client2\img\shopping-cart-template.PNG" />
+    <Content Include="Assets\Client2\img\visa.png" />
+    <Content Include="Assets\Client2\img\white_leather.png" />
+    <Content Include="Assets\Client2\js\bootstrap.js" />
+    <Content Include="Assets\Client2\js\bootstrap.min.js" />
+    <Content Include="Assets\Client2\js\jquery.easing-1.3.min.js" />
+    <Content Include="Assets\Client2\js\jquery.js" />
+    <Content Include="Assets\Client2\js\jquery.scrollTo-1.4.3.1-min.js" />
+    <Content Include="Assets\Client2\js\shop.js" />
+    <Content Include="Assets\client\css\flexslider.css" />
+    <Content Include="Assets\client\css\responsiveslides.css" />
+    <Content Include="Assets\client\css\style.css" />
+    <Content Include="Assets\client\css\style1.css" />
+    <Content Include="Assets\client\css\Style3.css" />
+    <Content Include="Assets\client\font-awesome\css\font-awesome-ie7.css" />
+    <Content Include="Assets\client\font-awesome\css\font-awesome-ie7.min.css" />
+    <Content Include="Assets\client\font-awesome\css\font-awesome.css" />
+    <Content Include="Assets\client\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Assets\client\font-awesome\font\fontawesome-webfont.svg" />
+    <Content Include="Assets\client\images\012.png" />
+    <Content Include="Assets\client\images\1.png" />
+    <Content Include="Assets\client\images\2.png" />
+    <Content Include="Assets\client\images\admin.png" />
+    <Content Include="Assets\client\images\admin1.png" />
+    <Content Include="Assets\client\images\arrow.png" />
+    <Content Include="Assets\client\images\arrow1.png" />
+    <Content Include="Assets\client\images\btn-cart.png" />
+    <Content Include="Assets\client\images\btn-details.png" />
+    <Content Include="Assets\client\images\cal.png" />
+    <Content Include="Assets\client\images\cal1.png" />
+    <Content Include="Assets\client\images\facebook.png" />
+    <Content Include="Assets\client\images\grid-img1.jpg" />
+    <Content Include="Assets\client\images\grid-img2.jpg" />
+    <Content Include="Assets\client\images\grid-img3.jpg" />
+    <Content Include="Assets\client\images\link-compare.png" />
+    <Content Include="Assets\client\images\link-wishlist.png" />
+    <Content Include="Assets\client\images\logo.png" />
+    <Content Include="Assets\client\images\m1.jpg" />
+    <Content Include="Assets\client\images\m10.jpg" />
+    <Content Include="Assets\client\images\m11.jpg" />
+    <Content Include="Assets\client\images\m2.jpg" />
+    <Content Include="Assets\client\images\m4.jpg" />
+    <Content Include="Assets\client\images\m6.jpg" />
+    <Content Include="Assets\client\images\m7.jpg" />
+    <Content Include="Assets\client\images\post-in.png" />
+    <Content Include="Assets\client\images\quotes_alt.png" />
+    <Content Include="Assets\client\images\remove.png" />
+    <Content Include="Assets\client\images\rss.png" />
+    <Content Include="Assets\client\images\sepHor.png" />
+    <Content Include="Assets\client\images\twitter.png" />
+    <Content Include="Assets\client\js\common.js" />
+    <Content Include="Assets\client\js\imagezoom.js" />
+    <Content Include="Assets\client\js\jquery.flexslider.js" />
+    <Content Include="Assets\client\js\jquery.livequery.js" />
+    <Content Include="Assets\client\js\jquery.min.js" />
+    <Content Include="Assets\client\js\responsiveslides.min.js" />
     <Content Include="Assets\libs\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="Assets\libs\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Assets\libs\bootstrap\js\bootstrap.js" />
@@ -405,6 +511,14 @@
     <Content Include="Assets\libs\fontawesome-free\webfonts\fa-brands-400.svg" />
     <Content Include="Assets\libs\fontawesome-free\webfonts\fa-regular-400.svg" />
     <Content Include="Assets\libs\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <Content Include="Assets\libs\jquery-ui.css" />
+    <Content Include="Assets\libs\jquery-ui.js" />
+    <Content Include="Assets\libs\jquery-ui.min.css" />
+    <Content Include="Assets\libs\jquery-ui.min.js" />
+    <Content Include="Assets\libs\jquery-ui.structure.css" />
+    <Content Include="Assets\libs\jquery-ui.structure.min.css" />
+    <Content Include="Assets\libs\jquery-ui.theme.css" />
+    <Content Include="Assets\libs\jquery-ui.theme.min.css" />
     <Content Include="Assets\libs\jquery\core.js" />
     <Content Include="Assets\libs\jquery\jquery.js" />
     <Content Include="Assets\libs\jquery\jquery.min.js" />
@@ -423,8 +537,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\client\" />
     <Folder Include="Assets\Images\" />
+    <Folder Include="Views\About\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -465,11 +579,42 @@
     <Content Include="Assets\libs\fontawesome-free\webfonts\fa-solid-900.ttf" />
     <Content Include="Assets\libs\fontawesome-free\webfonts\fa-solid-900.woff" />
     <Content Include="Assets\libs\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <Content Include="Assets\client\font-awesome\font\fontawesome-webfont.eot" />
+    <Content Include="Assets\client\font-awesome\font\fontawesome-webfont.ttf" />
+    <Content Include="Assets\client\font-awesome\font\fontawesome-webfont.woff" />
+    <Content Include="Assets\client\font-awesome\font\FontAwesome.otf" />
+    <Content Include="Assets\client\font-awesome\less\bootstrap.less" />
+    <Content Include="Assets\client\font-awesome\less\core.less" />
+    <Content Include="Assets\client\font-awesome\less\extras.less" />
+    <Content Include="Assets\client\font-awesome\less\font-awesome-ie7.less" />
+    <Content Include="Assets\client\font-awesome\less\font-awesome.less" />
+    <Content Include="Assets\client\font-awesome\less\icons.less" />
+    <Content Include="Assets\client\font-awesome\less\mixins.less" />
+    <Content Include="Assets\client\font-awesome\less\path.less" />
+    <Content Include="Assets\client\font-awesome\less\variables.less" />
+    <Content Include="Assets\client\font-awesome\scss\font-awesome-ie7.scss" />
+    <Content Include="Assets\client\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Assets\client\font-awesome\scss\_bootstrap.scss" />
+    <Content Include="Assets\client\font-awesome\scss\_core.scss" />
+    <Content Include="Assets\client\font-awesome\scss\_extras.scss" />
+    <Content Include="Assets\client\font-awesome\scss\_icons.scss" />
+    <Content Include="Assets\client\font-awesome\scss\_mixins.scss" />
+    <Content Include="Assets\client\font-awesome\scss\_path.scss" />
+    <Content Include="Assets\client\font-awesome\scss\_variables.scss" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Shared\Header.cshtml" />
+    <Content Include="Views\Shared\sidebar.cshtml" />
+    <Content Include="Views\Home\Footer.cshtml" />
+    <Content Include="Views\Home\SideBar.cshtml" />
+    <Content Include="Views\Product\Category.cshtml" />
+    <Content Include="Views\Product\Search.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OnlineShop.Common\OnlineShop.Common.csproj">

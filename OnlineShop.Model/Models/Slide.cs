@@ -25,6 +25,7 @@ namespace OnlineShop.Model.Models
         public string Url { get; set; }
         public int DisplayOrder { get; set; }
         public bool Status { set; get; }
+        public string Content { get; set; }
 
 
     }

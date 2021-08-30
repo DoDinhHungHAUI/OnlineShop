@@ -1,0 +1,265 @@
+﻿@model OnlineShop.Web.Models.ProductViewModel
+
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section jsSliderDetails{
+    <script>
+        // Can also be used with $(document).ready()
+        $(window).load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".menu_body").hide();
+            //toggle the componenet with class menu_body
+            $(".menu_head").click(function () {
+                $(this).next(".menu_body").slideToggle(600);
+                var plusmin;
+                plusmin = $(this).children(".plusminus").text();
+
+                if (plusmin == '+')
+                    $(this).children(".plusminus").text('-');
+                else
+                    $(this).children(".plusminus").text('+');
+            });
+        });
+    </script>
+
+    }
+
+
+<div class="content-grids">
+
+    <div class="details-page">
+        <div class="back-links">
+            <ul>
+                <li><a href="/Home/Index">Home</a><img src="~/Assets/client/images/arrow.png" alt=""></li>
+                <li><a href="#">Product</a><img src="~/Assets/client/images/arrow.png" alt=""></li>
+                <li><a href="#">Product-Details</a><img src="~/Assets/client/images/arrow.png" alt=""></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="detalis-image">
+
+        <div class="flexslider">
+            <ul class="slides">
+                <li data-thumb="/Assets/Images/@Model.Image">
+                    <div class="thumb-image"> <img src="~/Assets/Images/@Model.Image" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+                </li>
+                <li data-thumb="/Assets/Images/@Model.Image">
+                    <div class="thumb-image"> <img src="~/Assets/Images/@Model.Image" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+                </li>
+                <li data-thumb="/Assets/Images/@Model.Image">
+                    <div class="thumb-image"> <img src="~/Assets/Images/@Model.Image" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="detalis-image-details">
+        <div class="details-categories">
+            <ul>
+                <li><h4>Tên sản phẩm:</h4></li>
+                <li class="active1"><a href="#"><span>Nokia Mobiles</span></a></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div><br>
+        <div class="brand-value">
+            <h3>Product-Complete Details With Value</h3>
+            <div class="left-value-details">
+                <ul>
+                    <li>Giá :</li>
+
+                    @if (Model.PromotionPrice != null)
+                    {
+                        <li><span>@Model.Price</span></li>
+                        <li><h5>@Model.PromotionPrice</h5></li>
+                    }
+                    else
+                    {
+                        <li><h5>@Model.Price</h5></li>
+                    }
+
+                    <br />
+                    <li><p>Not rated</p></li>
+                </ul>
+            </div>
+            <div class="right-value-details">
+                <a href="#">Instock</a>
+                <p>No reviews</p>
+            </div>
+
+            <div class="clear"> </div>
+        </div>
+        <div class="brand-history">
+            <h3>Mô tả sản phẩm :</h3>
+            <p>@Model.Content</p>
+            <a href="#">Thêm vào giỏ hàng</a>
+        </div>
+       
+        <div class="clear"> </div>
+
+    </div>
+
+    <div class="clear"> </div>
+    <div class="menu_container">
+        <p class="menu_head">Lorem Ipsum<span class="plusminus">-</span></p>
+        <div class="menu_body" style="">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        </div>
+        <p class="menu_head">About Product<span class="plusminus">-</span></p>
+        <div class="menu_body" style="">
+            <p>theonlytutorials.com is providing a great varitey of tutorials and scripts to use it immediate on any project!</p>
+        </div>
+    </div>
+
+    <!--Sản phẩm liên quan-->
+
+    <h3 class="title text-center">Sản phẩm liên quan</h3>
+    <div class="section group">
+
+        @{
+            var listRecommentProduct = (IEnumerable<OnlineShop.Web.Models.ProductViewModel>)ViewBag.listRecommentProduct;
+        }
+
+        <div class="row-fluid">
+
+            @for (int i = 0; i < listRecommentProduct.Count(); i += 4)
+            {
+                <ul class="thumbnails">
+                    @foreach (var product in listRecommentProduct.Skip(i).Take(4))
+                    {
+                        var url = "/" + product.Alias + ".p-" + product.ID + ".html";
+
+                        <li class="span4">
+                            <div class="thumbnail">
+                                <a href="@url" class="overlay"></a>
+                                <a class="zoomTool" href="@url" title="add to cart" style="display: none;"><span class="icon-search"></span> Chi tiết</a>
+                                <a href="product_details.html"><img src="~/Assets/Images/@product.Image" alt="@product.Name"></a>
+                                <div class="caption cntr">
+                                    <p>@product.Name</p>
+                                    <p><strong> @(product.Price == 0 ? "Liên hệ" : product.Price.ToString("N0"))</strong></p>
+                                    <h4><a class="shopBtn" href="#" title="add to cart">Thêm vào giỏ hàng</a></h4>
+                                    <div class="actionList">
+                                        <a class="pull-left" href="#">Add to Wish List </a>
+                                        <a class="pull-left" href="#"> Add to Compare </a>
+                                    </div>
+                                    <br class="clr">
+                                </div>
+                            </div>
+                        </li>
+                    }
+
+                </ul>
+            }
+
+
+            @*<ul class="thumbnails">
+                    @foreach (var product in Model.Items)
+                    {
+                        var nameClass = "";
+
+                        var url = "/" + product.Alias + ".p" + product.ID;
+
+                        if (dem % 3 == 0)
+                        {
+                            nameClass = "firsChild";
+                        }
+
+                        dem++;
+
+                        <li class="span4 @nameClass">
+                            <div class="thumbnail">
+                                <a href="product_details.html" class="overlay"></a>
+                                <a class="zoomTool" href="@url" title="add to cart" style="display: none;"><span class="icon-search"></span> Chi tiết</a>
+                                <a href="product_details.html"><img src="~/Assets/Images/@product.Image" alt="@product.Name"></a>
+                                <div class="caption cntr">
+                                    <p>@product.Name</p>
+                                    <p><strong> @(product.Price == 0 ? "Liên hệ" : product.Price.ToString("N0"))</strong></p>
+                                    <h4><a class="shopBtn" href="#" title="add to cart">Thêm vào giỏ hàng</a></h4>
+                                    <div class="actionList">
+                                        <a class="pull-left" href="#">Add to Wish List </a>
+                                        <a class="pull-left" href="#"> Add to Compare </a>
+                                    </div>
+                                    <br class="clr">
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>*@
+        </div>
+
+        @*@if (listRecommentProduct.Count() > 0)
+            {
+                foreach (var item in listRecommentProduct)
+                {
+                    <div class="grid_1_of_4 images_1_of_4 products-info">
+                        <img src="/Assets/Images/grid-img1215322288.jpg">
+                        <a href="single.html">Laptop</a>
+                        <h3>300,200</h3>
+                        <div class="caption cntr">
+                            <p>@item.Name</p>
+                            <p><strong> @(item.Price == 0 ? "Liên hệ" : item.Price.ToString("N0"))</strong></p>
+                            <h4><a class="shopBtn" href="#" title="add to cart">Thêm vào giỏ hàng</a></h4>
+                            <div class="actionList">
+                                <a class="pull-left" href="#">Add to Wish List </a>
+                                <a class="pull-left" href="#"> Add to Compare </a>
+                            </div>
+                            <br class="clr">
+                        </div>
+                    </div>
+                }
+            }*@
+
+
+    </div>
+
+
+</div>
+
+
+    <style>
+        h2 .title {
+            color: #FE980F;
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 15px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .images_1_of_4 img{
+            height : 230px !important;
+        }
+
+        .flexslider .slides img{
+            height : 250px !important;
+        }
+        .row-fluid .span4{
+            width : 23.2% !important;
+        }
+        .carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img{
+            height : 230px !important;
+        }
+
+
+    </style>

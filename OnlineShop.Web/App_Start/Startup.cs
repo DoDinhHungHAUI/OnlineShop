@@ -30,7 +30,7 @@ namespace OnlineShop.Web.App_Start
         public void Configuration(IAppBuilder app)
         {
             ConfigAutofac(app);
-            ConfigureAuth(app);
+            ConfigureAuth(app); 
         }
         private void ConfigAutofac(IAppBuilder app)
         {
@@ -51,12 +51,10 @@ namespace OnlineShop.Web.App_Start
             builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
             builder.Register(c => app.GetDataProtectionProvider()).InstancePerRequest();
 
-
             // Repositories
             builder.RegisterAssemblyTypes(typeof(PostCategoryRepository).Assembly)
                 .Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces().InstancePerRequest();
-
 
             // Services
             builder.RegisterAssemblyTypes(typeof(ProductCategoryService).Assembly)

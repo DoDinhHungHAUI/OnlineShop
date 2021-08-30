@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using OnlineShop.Data;
+using OnlineShop.Model.Models;
 using OnlineShop.Web.App_Start;
+using OnlineShop.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +67,24 @@ namespace OnlineShop.Web.Api
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(userName, password, rememberMe, shouldLockout: false);
             return request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+
+        [Route("Register")]
+        [AllowAnonymous]
+        [HttpPost]
+
+       public IdentityResult Register(AccountModel model)
+        {
+            var userStore = new UserStore<ApplicationUser>(new OnlineShopDbContext());
+            var manager = new UserManager<ApplicationUser>(userStore);
+            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email };
+            manager.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 3
+            };
+            IdentityResult result = manager.Create(user, model.Password);
+            return result;
         }
 
 
