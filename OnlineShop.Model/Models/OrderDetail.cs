@@ -18,10 +18,12 @@ namespace OnlineShop.Model.Models
         [Column(Order = 2)]
         public int ProductID { get; set; }
         public int Quantity { get; set; }
+        public decimal Price { set; get; }
+
+        [ForeignKey("ProductID")]
+        public virtual Product Products { set; get; }
 
         [ForeignKey("OrderID")]
-        public virtual ProductCategory ProductCategories { get; set; }
-        [ForeignKey("ProductID")]
         public virtual  Order Orders { get; set; }
 
     }

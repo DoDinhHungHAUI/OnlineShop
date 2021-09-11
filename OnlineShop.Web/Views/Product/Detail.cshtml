@@ -8,6 +8,7 @@
 
 
 @section jsSliderDetails{
+
     <script>
         // Can also be used with $(document).ready()
         $(window).load(function () {
@@ -35,8 +36,9 @@
         });
     </script>
 
-    }
 
+
+}
 
 <div class="content-grids">
 
@@ -107,10 +109,22 @@
         <div class="brand-history">
             <h3>Mô tả sản phẩm :</h3>
             <p>@Model.Content</p>
-            <a href="#">Thêm vào giỏ hàng</a>
+            <a href="#" data-id="@Model.ID" class="btnAddToCart">Thêm vào giỏ hàng</a>
         </div>
-       
+
         <div class="clear"> </div>
+
+        <div class="tag">
+            <h5>Tag :</h5>
+            <ul class="taglist">
+                @foreach (var tag in (IEnumerable<OnlineShop.Web.Models.TagViewModel>)ViewBag.Tags)
+                {
+                    <li><a href="/tag/@(tag.ID).html"><span class="badge badge-dark">@(tag.Name)</span></a></li>
+                }
+
+            </ul>
+        </div>
+
 
     </div>
 
@@ -152,7 +166,7 @@
                                 <div class="caption cntr">
                                     <p>@product.Name</p>
                                     <p><strong> @(product.Price == 0 ? "Liên hệ" : product.Price.ToString("N0"))</strong></p>
-                                    <h4><a class="shopBtn" href="#" title="add to cart">Thêm vào giỏ hàng</a></h4>
+                                    <h4><a class="shopBtn btnAddToCart" href="#" title="add to cart" data-id="@product.ID">Thêm vào giỏ hàng</a></h4>
                                     <div class="actionList">
                                         <a class="pull-left" href="#">Add to Wish List </a>
                                         <a class="pull-left" href="#"> Add to Compare </a>
@@ -231,35 +245,39 @@
 </div>
 
 
-    <style>
-        h2 .title {
-            color: #FE980F;
-            font-family: 'Roboto', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-            margin: 0 15px;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            position: relative;
-        }
+<style>
+    h2 .title {
+        color: #FE980F;
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0 15px;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        position: relative;
+    }
 
-        .text-center {
-            text-align: center;
-        }
+    .text-center {
+        text-align: center;
+    }
 
-        .images_1_of_4 img{
-            height : 230px !important;
-        }
+    .images_1_of_4 img {
+        height: 230px !important;
+    }
 
-        .flexslider .slides img{
-            height : 250px !important;
-        }
-        .row-fluid .span4{
-            width : 23.2% !important;
-        }
-        .carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img{
-            height : 230px !important;
-        }
+    .flexslider .slides img {
+        height: 250px !important;
+    }
 
+    .row-fluid .span4 {
+        width: 23.2% !important;
+    }
 
-    </style>
+    .carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img {
+        height: 230px !important;
+    }
+
+    .tag {
+        position: inherit !important;
+    }
+</style>

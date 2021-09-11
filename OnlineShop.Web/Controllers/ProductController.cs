@@ -24,6 +24,7 @@ namespace OnlineShop.Web.Controllers
             this._productCategoryService = productCategoryService;
         }
 
+
         // GET: Product
         public ActionResult Detail(int id)
         {
@@ -33,6 +34,8 @@ namespace OnlineShop.Web.Controllers
             var realteProducts  = _productService.GetReatedProducts(id, 8);
 
             ViewBag.listRecommentProduct = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(realteProducts);
+
+            ViewBag.Tags = Mapper.Map<IEnumerable<Tag>, IEnumerable<TagViewModel>>(_productService.GetListTagByProductId(id));
 
             return View(viewModel);
         }
@@ -103,6 +106,28 @@ namespace OnlineShop.Web.Controllers
             return View(paginationSet);
         }
 
+
+        public ActionResult ListByTag(string tagId , int page = 1)
+        {
+            int pageSize = ConfigHelper.pageSize;
+            int totalRow = 0;
+            var productModel = _productService.GetListProductByTag(tagId, page, pageSize, out totalRow);//Lấy ra danh sách product dựa vào tag (id)
+            var productViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(productModel);
+            int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
+            ViewBag.Tag = Mapper.Map<Tag, TagViewModel>(_productService.GetTag(tagId));
+            var paginationSet = new PaginationSet<ProductViewModel>()
+            {
+                Items = productViewModel,
+                MaxPage = ConfigHelper.MaxPage,
+                Page = page,
+                TotalCount = totalRow,
+                TotalPages = totalPage
+            };
+
+            return View(paginationSet);
+
+
+        }
 
 
 

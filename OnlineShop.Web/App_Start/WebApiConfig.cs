@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Owin.Security.OAuth;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -11,9 +12,18 @@ namespace OnlineShop.Web
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            /*config.EnableCors(new EnableCorsAttribute("http://localhost:4200", "*", "*"));*/
 
+
+            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            config.EnableCors(cors);
+
+      
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
@@ -21,7 +31,7 @@ namespace OnlineShop.Web
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.EnableCors(new EnableCorsAttribute("http://localhost:4200", "*", "*"));
+            
         }
     }
 }

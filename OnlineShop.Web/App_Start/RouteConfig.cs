@@ -13,10 +13,48 @@ namespace OnlineShop.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.IgnoreRoute("{*botdetect}", new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
+
             routes.MapRoute(
                 name: "Search",
                 url: "tim-kiem.html",
                 defaults: new { controller = "Product", action = "Search", id = UrlParameter.Optional },
+                namespaces: new string[] { "OnlineShop.Web.Controllers" }
+            );
+
+            routes.MapRoute(
+               name: "CheckOut",
+                url: "thanh-toan.html",
+                defaults: new { controller = "ShoppingCart", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "OnlineShop.Web.Controllers" }
+           );
+
+
+            routes.MapRoute(
+                name: "Cart",
+                url: "gio-hang.html",
+                defaults: new { controller = "ShoppingCart", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "OnlineShop.Web.Controllers" }
+            );
+
+
+            routes.MapRoute(
+                name: "Login",
+                url: "dang-nhap.html",
+                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
+                 namespaces: new string[] { "OnlineShop.Web.Controllers" }
+            );
+            routes.MapRoute(
+               name: "Register",
+               url: "dang-ky.html",
+               defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional },
+                namespaces: new string[] { "OnlineShop.Web.Controllers" }
+           );
+
+            routes.MapRoute(
+                name: "Contact",
+                url: "lien-he.html",
+                defaults: new { controller = "Contact", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "OnlineShop.Web.Controllers" }
             );
 
@@ -40,6 +78,14 @@ namespace OnlineShop.Web
                 defaults: new { controller = "Product", action = "Detail", id = UrlParameter.Optional },
                 namespaces: new string[] { "OnlineShop.Web.Controllers" }
             );
+
+            routes.MapRoute(
+             name: "TagList",
+             url: "tag/{tagId}.html",
+             defaults: new { controller = "Product", action = "ListByTag", tagId = UrlParameter.Optional },
+               namespaces: new string[] { "OnlineShop.Web.Controllers" }
+            );
+
 
             routes.MapRoute(
                 name: "Default",

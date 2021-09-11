@@ -18,8 +18,6 @@ namespace OnlineShop.Data.Infrastructure
             private set;
         }
 
-      
-
         protected OnlineShopDbContext DbContext
         {
             get { return dataContext ?? (dataContext = DbFactory.Init()); }

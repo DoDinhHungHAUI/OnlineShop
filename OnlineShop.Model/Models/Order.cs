@@ -36,6 +36,13 @@ namespace OnlineShop.Model.Models
         public string PaymentMethod { set; get; }
         public string PaymentStatus { set; get; }
         public bool Status { set; get; }
+
+        [StringLength(128)]
+        [Column(TypeName ="nvarchar")]
+        public string CustomerId { get; set; }
+        [ForeignKey("CustomerId")]
+        public virtual ApplicationUser User { set; get; }
+ 
         public virtual IEnumerable<OrderDetail> OrderDetails { get; set; }
 
     }

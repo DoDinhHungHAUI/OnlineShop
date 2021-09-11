@@ -21,6 +21,13 @@ namespace OnlineShop.Web.Mappings
             Mapper.CreateMap<ProductTag, ProductTagViewModel>();
             Mapper.CreateMap<Footer, FooterViewModel>();
             Mapper.CreateMap<Slide, SlideViewModel>();
+            Mapper.CreateMap<ContactDetails, ContactDetailViewModel>();
+
+
+            Mapper.CreateMap<ApplicationGroup, ApplicationGroupViewModel>();
+            Mapper.CreateMap<ApplicationRole, ApplicationRoleViewModel>();
+            Mapper.CreateMap<ApplicationUser, ApplicationUserViewModel>();
+
         }
     }
 }

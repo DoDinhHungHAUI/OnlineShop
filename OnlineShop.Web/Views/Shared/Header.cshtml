@@ -10,12 +10,22 @@
         <div class="clear"> </div>
         <div class="header-top-nav">
             <ul>
-                <li><a href="#">Register</a></li>
-                <li><a href="#">Login</a></li>
+
+                @if (Request.IsAuthenticated)
+                {
+                    <li><a href="/tai-khoan.html">Xin chào : @User.Identity.Name</a></li>
+                    <li><a href="/thoat.html">Đăng xuất</a></li>
+                }
+                else
+                {
+                    <li><a href="dang-ky.html">Đăng ký</a></li>
+                    <li><a href="dang-nhap.html">Đăng nhập</a></li>
+                }
+                 
                 <li><a href="#">Delivery</a></li>
                 <li><a href="#">Checkout</a></li>
                 <li><a href="#">My account</a></li>
-                <li><a href="#"><span>shopping cart&nbsp;&nbsp;: </span></a><label> &nbsp;noitems</label></li>
+                <li><a href="/gio-hang.html"><span>Giỏ hàng&nbsp;&nbsp;: </span></a><label> &nbsp;noitems</label></li>
             </ul>
         </div>
         <div class="clear"> </div>
@@ -37,7 +47,7 @@
                 <li><a href="store.html">Store</a></li>
                 <li><a href="store.html">Featured</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="/lien-he.html">Liên hệ</a></li>
             </ul>
         </div>
         <div class="clear"> </div>

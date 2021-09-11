@@ -1,0 +1,105 @@
+﻿
+
+<div class="wrap">
+    <!----start-Header---->
+    <div class="header">
+        <div class="search-bar">
+            <form method="get" action="/tim-kiem.html">
+                <input id="txtSearch" type="text" name="keyword" placeholder="Từ khóa">
+                <input type="submit" value="Search" />
+            </form>
+        </div>
+        <div class="clear"> </div>
+        <div class="header-top-nav">
+            <ul>
+
+                @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { @id = "frmLogout" }))
+                { 
+
+                    @Html.AntiForgeryToken()
+
+                    if (Request.IsAuthenticated)
+                    {
+                        <li><a href="/tai-khoan.html">Xin chào : @User.Identity.Name</a></li>
+                        <li><a href="#" id="btnLogout">Đăng xuất</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="dang-ky.html"><i class="fas fa-user-plus"></i> Đăng ký</a></li>
+                        <li><a href="dang-nhap.html"> <i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
+                    }
+
+                    <li><a href="#">Delivery</a></li>
+                    <li><a href="#">Checkout</a></li>
+                    <li><a href="#">My account</a></li>
+                    <li><a href="/gio-hang.html"><span><i class="fas fa-shopping-cart" style="font-size : 19px;color : crimson;"></i></span></a> - <label>0 items</label></li>
+
+                }
+
+            </ul>
+        </div>
+        <div class="clear"> </div>
+    </div>
+</div>
+<div class="clear"> </div>
+<div class="top-header">
+    <div class="wrap">
+        <!----start-logo---->
+        <div class="logo">
+            <a href="index.html"><img src="~/Assets/client/images/logo.png" title="logo" /></a>
+        </div>
+        <!----end-logo---->
+        <!----start-top-nav---->
+        <div class="top-nav">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="store.html">Store</a></li>
+                <li><a href="store.html">Featured</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="/lien-he.html">Liên hệ</a></li>
+            </ul>
+        </div>
+        <div class="clear"> </div>
+    </div>
+</div>
+<!----End-top-nav---->
+<!----End-Header---->
+<!--start-image-slider---->
+
+
+<style>
+    .header-top-nav ul li a, .header-top-nav{
+        font-size : 0.95em !important;
+    }
+
+    .header-top-nav{
+        height : 21px !important;
+    }
+
+    .search-bar{
+        height : 33px !important;
+    }
+
+    .logo {
+        padding-top : 0px !important;
+    }
+
+    .top-header {
+        padding: 12px 0px 0px 0px !important;
+    }
+
+    ul>li>a>i{
+        margin-right : 5px !important;
+    }
+
+</style>
+
+
+<script>
+    
+        $('#btnLogout').off('click').on('click', function (e) {
+            e.preventDefault();
+            $('#frmLogout').submit();
+        });
+</script>

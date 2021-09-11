@@ -13,6 +13,15 @@ namespace OnlineShop.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+
+       /* protected void Application_BeginRequest()
+        {
+            if (Request.Headers.AllKeys.Contains("Origin") && Request.HttpMethod == "OPTIONS")
+            {
+                Response.Flush();
+            }
+        }*/
+
         protected void Application_Start()
         {
 
@@ -34,6 +43,9 @@ namespace OnlineShop.Web
         //{
         //    HttpContext.Current.Response.AppendHeader("Access-Control-Allow-Origin", "*");
         //}
+
+
+        
 
     }
 }

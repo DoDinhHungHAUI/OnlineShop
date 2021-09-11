@@ -1,5 +1,6 @@
 ﻿using OnlineShop.Model.Abstract;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
@@ -37,12 +38,15 @@ namespace OnlineShop.Model.Models
         public bool? HomeFlag { set; get; }
         public bool? HotFlag { set; get; }
         public int? ViewCount { get; set; }
-
+        public decimal OriginalPrice { set; get; }
         public int? Quality { get; set; }
         public string Tags { set; get; }
 
         [ForeignKey("CategoryID")]
         public virtual ProductCategory ProductCategory { set; get; }
+
+        public virtual IEnumerable<ProductTag> ProductTags { get; set; }
+
 
         //public virtual IEquatable<Tag> Tags { get; set; }
 

@@ -1,0 +1,52 @@
+﻿
+@model OnlineShop.Web.Models.LoginViewModel
+
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-grids"">
+    <div class="login-right">
+        <h3>Đăng nhập</h3>
+
+        @using (Html.BeginForm("Login", "Account", new { returnUrl = @ViewBag.ReturnUr }, FormMethod.Post))
+        {
+            <div class="form-group">
+                <label>Tài Khoản <span style="color : red;"> (*) </span></label>
+                @Html.TextBoxFor(model => model.UserName , new { placeholder = "Tài khoản", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Mật khẩu <span style="color : red;"> (*) </span></label>
+                @Html.PasswordFor(model => model.Password , new { placeholder = "Mật khẩu", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <span> <label>Nhớ mật khẩu ? </label></span>
+                @Html.CheckBoxFor(model => model.RememberMe)
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-warning" />
+            </div>
+
+        }
+
+    </div>
+
+    <div class="login-left">
+        <h3>Chưa có tài khoản</h3>
+        <p>Nếu bạn chưa có tài khoản vui lòng đăng ký tại link dưới đây:</p>
+        <a class="acount-btn" href="/dang-ky.html">Đăng ký thành viên</a>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+
+</div>
+
+
+
+
+
+

@@ -14,16 +14,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <meta name="keywords" content="Mobilestore iphone web template, Android web template, Smartphone web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
     <link href='//fonts.googleapis.com/css?family=Londrina+Solid|Coda+Caption:800|Open+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="~/Assets/client/css/responsiveslides.css">
-    <link href="~/Assets/Client2/css/bootstrap.css" rel="stylesheet" />
+
 
     <link href="~/Assets/client/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="~/Assets/client/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Assets/Client2/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Assets/libs/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/Assets/client/css/flexslider.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 
     <script src="~/Assets/client/js/jquery.min.js"></script>
     <script src="~/Assets/client/js/responsiveslides.min.js"></script>
@@ -33,16 +33,36 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 
+    @*<title>Hưng Miền OnlineShop</title>
+            <meta name="keywords" content="Mobilestore iphone web template, Android web template, Smartphone web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+        <link href='//fonts.googleapis.com/css?family=Londrina+Solid|Coda+Caption:800|Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+        <link href="~/Assets/client/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="~/Assets/Client2/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/Assets/client/css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+        <link href="~/Assets/libs/jquery-ui.min.css" rel="stylesheet" />
+        <link href="~/Assets/client/css/flexslider.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/Assets/client/css/responsiveslides.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    *@
+
+
+
     <script>
         // You can also use "$(window).load(function() {"
-        @*$(function () {
+        $(function () {
 
             // Slideshow 1
             $("#slider1").responsiveSlides({
                 maxwidth: 1600,
                 speed: 600
             });
-        });*@
+        });
     </script>
 
     @RenderSection("jsSliderDetails", false)
@@ -98,7 +118,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!----End-Header---->
     <!--start-image-slider---->
 
-    @{ Html.RenderPartial("Header");}
+
+    @{ Html.RenderAction("Header", "Home");}
 
     <div class="wrap">
 
@@ -237,11 +258,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="~/Assets/Client2/js/jquery.scrollTo-1.4.3.1-min.js"></script>
     <script src="~/Assets/Client2/js/shop.js"></script>
     <script src="~/Assets/libs/jquery-ui.min.js"></script>
+
+    <script src="~/Assets/client/js/Mustache/node_modules/mustache/mustache.js"></script>
+    <script src="~/Assets/client/js/ShoppingCart.js"></script>
+    <script src="~/Assets/libs/NumeralJs/min/numeral.min.js"></script>
+
     <script src="~/Assets/client/js/common.js"></script>
+
 
     <script src="~/Assets/client/js/jqzoom.pack.1.0.1.js" type="text/javascript"></script>
     <script src="~/Assets/client/js/imagezoom.js"></script>
     <script src="~/Assets/client/js/jquery.flexslider.js"></script>
+
+    @RenderSection("footerJS", required: false)
 
 </body>
 </html>

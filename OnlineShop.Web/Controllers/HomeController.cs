@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Owin.Security;
 using OnlineShop.Model.Models;
 using OnlineShop.Service;
 using OnlineShop.Web.Models;
@@ -23,8 +24,10 @@ namespace OnlineShop.Web.Controllers
         }
 
         // GET: Home
+        [OutputCache(Duration = 60, Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Index()
         {
+            
             var slideModel = _commonService.GetSlides();
             var slideView = Mapper.Map<IEnumerable<Slide>, IEnumerable<SlideViewModel>>(slideModel);
             HomeViewModel homeViewModel = new HomeViewModel();
@@ -42,6 +45,7 @@ namespace OnlineShop.Web.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration = 3600)]
         public ActionResult SideBar()//Category
         {
 
@@ -52,6 +56,7 @@ namespace OnlineShop.Web.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration =3600)]
         public ActionResult Footer()
         {
 
@@ -60,5 +65,15 @@ namespace OnlineShop.Web.Controllers
 
             return PartialView(footerViewModel);
         }
+
+        [ChildActionOnly]
+        public ActionResult Header()
+        {
+            return PartialView();
+        }
+
+
+       
+
     }
 }

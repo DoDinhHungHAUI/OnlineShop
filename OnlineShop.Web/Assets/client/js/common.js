@@ -2,6 +2,9 @@
     init: function () {
         common.registerEvents();
     },
+
+
+
     registerEvents: function () {
         $("#txtSearch").autocomplete({
             minLength: 0,
@@ -30,6 +33,9 @@
                 .append("<a>" + item.label + "</a>")
                 .appendTo(ul);
         };
+
+       
+
     }
 }
 common.init();

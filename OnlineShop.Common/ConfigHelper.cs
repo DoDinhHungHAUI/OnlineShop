@@ -11,5 +11,18 @@ namespace OnlineShop.Common
     {
         public const int pageSize = 6;
         public const int MaxPage = 5;
+
+
+        public const string SMTPHost = "smtp.gmail.com";
+        public const string SMTPPort = "587";
+        public const string FromEmailAddress = "hungonlineshop@gmail.com";
+
+        public const string FromEmailPassword = "dinhhung2k";
+        public const string FromName = "HungMien";
+
+        public const string AdminEmail = "hungmien0411@gmail.com";
+
+        public const string currentLink = "";
+
     }
 }

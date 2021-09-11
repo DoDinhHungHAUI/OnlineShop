@@ -26,6 +26,7 @@ namespace OnlineShop.Model.Models
             return userIdentity;
         }
 
+        public virtual IEnumerable<Order> Orders { get; set; }
 
 
 

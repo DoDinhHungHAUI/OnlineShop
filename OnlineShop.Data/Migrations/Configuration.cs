@@ -7,6 +7,8 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Data.Entity.Validation;
+    using System.Diagnostics;
     using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<OnlineShop.Data.OnlineShopDbContext>
@@ -21,6 +23,8 @@
             //  This method will be called after migrating to the latest version.
             CreateProductCategorySample(context);
             CreateSlide(context);
+
+            CreateContactDetail(context);
 
 
             /*var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new OnlineShopDbContext()));
@@ -94,6 +98,43 @@
                 context.SaveChanges();
             }
         }
+
+        private void CreateContactDetail(OnlineShopDbContext context)
+        {
+            if(context.ContactDetails.Count() == 0)
+            {
+                try
+                {
+                    var contactDetail = new OnlineShop.Model.Models.ContactDetails()
+                    {
+                        Name = "Hung onlineShop",
+                        Address = "Liệp Tuyết, Quốc Oai, Hà Nội",
+                        Lat = 20.9855729,
+                        Lng = 105.6020397,
+                        Phone = "0963514289",
+                        Website = "",
+                        Other = "",
+                        Status = true
+                    };
+
+                    context.ContactDetails.Add(contactDetail);
+                    context.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var eve in ex.EntityValidationErrors)
+                    {
+                        Trace.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation error.");
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Trace.WriteLine($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                        }
+                    }
+                }
+            }    
+        }
+
+
 
     }
 }

@@ -36,6 +36,15 @@ namespace OnlineShop.Data
 
         public DbSet<Error> Errors { set; get; }
 
+        public DbSet<ContactDetails> ContactDetails { set; get; }
+
+        public DbSet<FeedBack> FeekBacks { set; get; }
+
+        public DbSet<ApplicationGroup> ApplicationGroups { set; get; }
+        public DbSet<ApplicationRole> ApplicationRoles { set; get; }
+        public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { set; get; }
+        public DbSet<ApplicationUserGroup> ApplicationUserGroups { set; get; }
+
         public static OnlineShopDbContext Create()
         {
             return new OnlineShopDbContext();
@@ -45,7 +54,10 @@ namespace OnlineShop.Data
             builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId , i.RoleId});
             builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
 
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId }).ToTable("ApplicationUserRoles");
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId).ToTable("ApplicationUserLogins");
+            builder.Entity<IdentityRole>().ToTable("ApplicationRoles");
+            builder.Entity<IdentityUserClaim>().HasKey(i => i.UserId).ToTable("ApplicationUserClaims");
         }
-
     }
 }

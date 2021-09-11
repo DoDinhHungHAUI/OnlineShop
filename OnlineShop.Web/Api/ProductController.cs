@@ -14,10 +14,13 @@ using System.IO;
 using System.Web;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Web.Http.Cors;
 
 namespace OnlineShop.Web.Api
 {
+  
     [RoutePrefix("api/product")]
+    
     public class ProductController : ApiControllerBase
     {
         #region Initialize
