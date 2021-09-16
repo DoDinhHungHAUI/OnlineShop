@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Owin.Security;
+using OnlineShop.Common;
 using OnlineShop.Model.Models;
 using OnlineShop.Service;
 using OnlineShop.Web.Models;
@@ -41,6 +42,20 @@ namespace OnlineShop.Web.Controllers
             homeViewModel.TopSaleProducts = topSaleProductViewModel;
             homeViewModel.slideView = slideView;
 
+
+
+
+            try
+            {
+                homeViewModel.Title = _commonService.GetSystemConfig(CommonConstants.HomeTitle).ValueString;
+                homeViewModel.MetaKeyword = _commonService.GetSystemConfig(CommonConstants.HomeMetaKeyword).ValueString;
+                homeViewModel.MetaDescription = _commonService.GetSystemConfig(CommonConstants.HomeMetaDescription).ValueString;
+            }
+            catch
+            {
+
+            }
+
             return View(homeViewModel);
         }
 
@@ -71,9 +86,6 @@ namespace OnlineShop.Web.Controllers
         {
             return PartialView();
         }
-
-
-       
 
     }
 }

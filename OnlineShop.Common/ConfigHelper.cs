@@ -9,7 +9,7 @@ namespace OnlineShop.Common
 {
     public class ConfigHelper
     {
-        public const int pageSize = 6;
+        public const int pageSize = 8;
         public const int MaxPage = 5;
 
 
@@ -23,6 +23,11 @@ namespace OnlineShop.Common
         public const string AdminEmail = "hungmien0411@gmail.com";
 
         public const string currentLink = "";
+
+        //public static string GetByKey(string key)
+        //{
+        //    return ConfigurationManager.AppSettings[key].ToString();
+        //}
 
     }
 }

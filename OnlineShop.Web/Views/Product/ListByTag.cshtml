@@ -3,8 +3,10 @@
 
 @{
     var tag = (OnlineShop.Web.Models.TagViewModel)ViewBag.Tag;
-
-    ViewBag.Title = "ListByTag";
+    var pageIndex = Model.Page;
+    ViewBag.Title = pageIndex == 1 ? "Kết quả tìm kiếm cho tag " + tag.Name : "Kết quả tìm kiếm cho tag " + tag.Name + " - Trang " + pageIndex;
+    ViewBag.MetaKeyword = pageIndex == 1 ? "Kết quả tìm kiếm cho tag " + tag.Name : "Kết quả tìm kiếm cho tag " + tag.Name + " - Trang " + pageIndex;
+    ViewBag.MetaDescription = pageIndex == 1 ? "Kết quả tìm kiếm cho tag " + tag.Name : "Kết quả tìm kiếm cho tag " + tag.Name + " - Trang " + pageIndex;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

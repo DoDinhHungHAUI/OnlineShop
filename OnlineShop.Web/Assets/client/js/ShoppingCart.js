@@ -39,7 +39,7 @@ var cart = {
 
         $('#btnContinue').off('click').on('click', function (e) {
             e.preventDefault();
-            window.location.href = "/";
+            window.location.href = "/Home/Index";
         });
 
         $('#btnDeleteAll').off('click').on('click', function (e) {
@@ -145,6 +145,7 @@ var cart = {
             success: function (response) {
                 if (response.status) {
                     cart.loadData();
+                    $("#CountcartItem").text(response.Counter + " Items")
                     console.log('Update ok');
                 }
             }
@@ -172,7 +173,11 @@ var cart = {
             success: function (response) {
                 if (response.status) {
                     alert('Thêm sản phẩm thành công.');
+                    $("#CountcartItem").text(response.Counter + " Items")
+                } else {
+                    alert(response.message);
                 }
+       
             }
         });
     },
@@ -185,6 +190,7 @@ var cart = {
             success: function (respose) {
                 if (respose.status) {
                     cart.loadData();
+                    $("#CountcartItem").text(response.Counter + " Items")
                 }
             }
         })
@@ -200,7 +206,9 @@ var cart = {
             dataType: 'Json',
             success: function (response) {
                 if (response.status) {
+
                     cart.loadData();
+                    $("#CountcartItem").text(response.Counter + " Items")
                 }
             }
         });
@@ -227,7 +235,9 @@ var cart = {
                             Quantity: item.Quantity,
                             Amount: numeral(item.Quantity * item.Product.Price).format('0,0')
                         });
+
                     });
+                    $("#CountcartItem").text(res.Counter + " Items")
 
                     $('#cartBody').html(html);
 
@@ -236,6 +246,7 @@ var cart = {
                     }
 
                     $('#lblTotalOrder').text(numeral(cart.getTotalOrder()).format('0,0'));
+                   
                     cart.registerEvent();
                 }
             }

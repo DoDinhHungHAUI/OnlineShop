@@ -3,10 +3,12 @@
 
 
 @{
-    ViewBag.Title = "Category";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-
     var category = (OnlineShop.Web.Models.ProductCategoryViewModel)ViewBag.Category;
+    var pageIndex = Model.Page;
+    ViewBag.Title = pageIndex == 1 ? category.Name : category.Name + " - Trang " + pageIndex;
+    ViewBag.MetaKeyword = pageIndex == 1 ? category.MetaKeyword : category.MetaKeyword + " - Trang " + pageIndex;
+    ViewBag.MetaDescription = pageIndex == 1 ? category.MetaDescription : category.MetaDescription + " - Trang " + pageIndex;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -18,10 +20,10 @@
         <div class="section group">
             <div class="row-fluid">
 
-                @for (int i = 0; i < Model.Items.Count(); i += 3)
+                @for (int i = 0; i < Model.Items.Count(); i += 4)
                 {
                     <ul class="thumbnails">
-                        @foreach (var product in Model.Items.Skip(i).Take(3))
+                        @foreach (var product in Model.Items.Skip(i).Take(4))
                         {
                             var url = "/" + product.Alias + ".p-" + product.ID + ".html";
 
@@ -34,10 +36,10 @@
                                         <p>@product.Name</p>
                                         <p><strong> @(product.Price == 0 ? "Liên hệ" : product.Price.ToString("N0"))</strong></p>
                                         <h4><a class="shopBtn btnAddToCart" href="#"  data-id="@product.ID"   title="add to cart">Thêm vào giỏ hàng</a></h4>
-                                        <div class="actionList">
+                                        @*<div class="actionList">
                                             <a class="pull-left" href="#">Add to Wish List </a>
                                             <a class="pull-left" href="#"> Add to Compare </a>
-                                        </div>
+                                        </div>*@
                                         <br class="clr">
                                     </div>
                                 </div>
@@ -312,6 +314,10 @@ else
     .carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img
     {
         height : 240px !important;
+    }
+
+    .row-fluid .span4 {
+        width: 23% !important;
     }
 
 </style>

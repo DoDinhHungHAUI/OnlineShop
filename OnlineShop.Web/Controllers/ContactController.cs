@@ -11,6 +11,9 @@ using System.Web.Mvc;
 using OnlineShop.Web.infrastructure.Extensions;
 using BotDetect.Web.Mvc;
 using OnlineShop.Common;
+using OnlineShop.Web.infrastructure.Custom;
+using CaptchaMvc.HtmlHelpers;
+using System.Threading.Tasks;
 
 namespace OnlineShop.Web.Controllers
 {
@@ -40,10 +43,12 @@ namespace OnlineShop.Web.Controllers
         }
 
         [HttpPost]
-        [CaptchaValidation("CaptchaCode", "contactCaptcha", "Mã xác nhận không đúng")]
-        public ActionResult SendEmail(FeedBackViewModel feedBackVM)
+        //[CaptchaValidation("CaptchaCode", "contactCaptcha", "Mã xác nhận không đúng")]
+        [ValidateGoogleCaptcha]
+        public async Task<ActionResult> Index(FeedBackViewModel feedBackVM)
         {
-            if(ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
                 FeedBack newFeedBack = new FeedBack();
                 newFeedBack.UpdateFeedback(feedBackVM);
@@ -68,7 +73,7 @@ namespace OnlineShop.Web.Controllers
 
             feedBackVM.ContactDetail = getContactDetail();
 
-            return View("Index" , feedBackVM);
+            return View(feedBackVM);
         }
 
 

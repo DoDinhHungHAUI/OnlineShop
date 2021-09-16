@@ -259,6 +259,30 @@
     <Compile Include="Migrations\202109031356479_userGrouptable.designer.cs">
       <DependentUpon>202109031356479_userGrouptable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109110251131_changeOderDetails.cs" />
+    <Compile Include="Migrations\202109110251131_changeOderDetails.designer.cs">
+      <DependentUpon>202109110251131_changeOderDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109110432031_changeProduct.cs" />
+    <Compile Include="Migrations\202109110432031_changeProduct.designer.cs">
+      <DependentUpon>202109110432031_changeProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109110744200_RevenuesStatisticSP.cs" />
+    <Compile Include="Migrations\202109110744200_RevenuesStatisticSP.designer.cs">
+      <DependentUpon>202109110744200_RevenuesStatisticSP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109121040362_updateProduct.cs" />
+    <Compile Include="Migrations\202109121040362_updateProduct.designer.cs">
+      <DependentUpon>202109121040362_updateProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109151343263_reportOrder.cs" />
+    <Compile Include="Migrations\202109151343263_reportOrder.designer.cs">
+      <DependentUpon>202109151343263_reportOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109151400389_userOrder.cs" />
+    <Compile Include="Migrations\202109151400389_userOrder.designer.cs">
+      <DependentUpon>202109151400389_userOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OnlineShopDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -355,6 +379,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109031356479_userGrouptable.resx">
       <DependentUpon>202109031356479_userGrouptable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109110251131_changeOderDetails.resx">
+      <DependentUpon>202109110251131_changeOderDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109110432031_changeProduct.resx">
+      <DependentUpon>202109110432031_changeProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109110744200_RevenuesStatisticSP.resx">
+      <DependentUpon>202109110744200_RevenuesStatisticSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109121040362_updateProduct.resx">
+      <DependentUpon>202109121040362_updateProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109151343263_reportOrder.resx">
+      <DependentUpon>202109151343263_reportOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109151400389_userOrder.resx">
+      <DependentUpon>202109151400389_userOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

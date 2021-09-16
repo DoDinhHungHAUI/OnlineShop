@@ -2,7 +2,7 @@
 
 <div class="content-sidebar">
     <h4>Danh mục sản phẩm</h4>
-    <ul>
+    <ul style="margin : 0px">
         @foreach (var item in Model.Where(x => x.ParentID == null))
         {
             var url = "/" + item.Alias + ".pc-" + item.ID + ".html";
@@ -54,6 +54,4 @@
         font-weight : 600 !important;
         font-size : 1.3rem !important;
     }
- 
-
 </style>

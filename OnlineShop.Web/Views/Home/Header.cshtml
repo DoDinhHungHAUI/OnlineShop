@@ -5,7 +5,7 @@
     <div class="header">
         <div class="search-bar">
             <form method="get" action="/tim-kiem.html">
-                <input id="txtSearch" type="text" name="keyword" placeholder="Từ khóa">
+                <input id="txtSearch" type="text" name="keyword" placeholder="Từ khóa...">
                 <input type="submit" value="Search" />
             </form>
         </div>
@@ -15,7 +15,6 @@
 
                 @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { @id = "frmLogout" }))
                 { 
-
                     @Html.AntiForgeryToken()
 
                     if (Request.IsAuthenticated)
@@ -29,10 +28,11 @@
                         <li><a href="dang-nhap.html"> <i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
                     }
 
-                    <li><a href="#">Delivery</a></li>
+                    @*<li><a href="#">Delivery</a></li>
                     <li><a href="#">Checkout</a></li>
-                    <li><a href="#">My account</a></li>
-                    <li><a href="/gio-hang.html"><span><i class="fas fa-shopping-cart" style="font-size : 19px;color : crimson;"></i></span></a> - <label>0 items</label></li>
+                    <li><a href="#">My account</a></li>*@
+
+                    @Html.Action("CartPartial", "ShoppingCart")
 
                 }
 
@@ -52,7 +52,7 @@
         <!----start-top-nav---->
         <div class="top-nav">
             <ul>
-                <li><a href="/">Home</a></li>
+                <li><a href="/Home/Index">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="store.html">Store</a></li>
                 <li><a href="store.html">Featured</a></li>
@@ -89,10 +89,22 @@
         padding: 12px 0px 0px 0px !important;
     }
 
+    ul{
+        margin : 0px 0px 10px 0px !important;
+    }
+
     ul>li>a>i{
         margin-right : 5px !important;
     }
 
+    #txtSearch {
+        height: 25px;
+        width: 258px;
+        box-shadow: none;
+   
+    }
+
+   
 </style>
 
 
@@ -102,4 +114,6 @@
             e.preventDefault();
             $('#frmLogout').submit();
         });
+
+
 </script>

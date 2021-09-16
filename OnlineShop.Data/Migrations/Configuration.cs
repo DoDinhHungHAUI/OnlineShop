@@ -21,11 +21,12 @@
         protected override void Seed(OnlineShop.Data.OnlineShopDbContext context)
         {
             //  This method will be called after migrating to the latest version.
+
             CreateProductCategorySample(context);
             CreateSlide(context);
 
             CreateContactDetail(context);
-
+            CreateConfigTitle(context);
 
             /*var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new OnlineShopDbContext()));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new OnlineShopDbContext()));
@@ -52,6 +53,37 @@
 
 
 
+        }
+
+        private void CreateConfigTitle(OnlineShopDbContext context)
+        {
+            if (!context.SystemConfigs.Any(x => x.Code == "HomeTitle"))
+            {
+                context.SystemConfigs.Add(new SystemConfig()
+                {
+                    Code = "HomeTitle",
+                    ValueString = "Trang chủ HungOnlineShop",
+
+                });
+            }
+            if (!context.SystemConfigs.Any(x => x.Code == "HomeMetaKeyword"))
+            {
+                context.SystemConfigs.Add(new SystemConfig()
+                {
+                    Code = "HomeMetaKeyword",
+                    ValueString = "Trang chủ HungOnlineShop",
+
+                });
+            }
+            if (!context.SystemConfigs.Any(x => x.Code == "HomeMetaDescription"))
+            {
+                context.SystemConfigs.Add(new SystemConfig()
+                {
+                    Code = "HomeMetaDescription",
+                    ValueString = "Trang chủ HungOnlineShop",
+
+                });
+            }
         }
 
         private void CreateProductCategorySample(OnlineShop.Data.OnlineShopDbContext context)

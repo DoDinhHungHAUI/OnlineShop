@@ -15,19 +15,16 @@ namespace OnlineShop.Web.Models
         [Required(ErrorMessage = "Bạn cần nhập mật khẩu.")]
         [MinLength(6 , ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự.")]
         public string PassWord { set; get; }
-        [Required(ErrorMessage = "Bạn cần nhập mật Email")]
-        [MinLength(6, ErrorMessage = "Địa chỉ email không đúng.")]
-
+       
         [Compare("PassWord" , ErrorMessage = "Mật khẩu phải trùng với mật khẩu đã nhập.")]
         public string ConfirmPassWord { set; get; }
+        [Required(ErrorMessage = "Bạn cần nhập mật Email")]
+        [MinLength(6, ErrorMessage = "Địa chỉ email không đúng.")]
         public string Email { set; get; }
+        [Required(ErrorMessage = "Bạn cần nhập địa chỉ")]
         public string Address { set; get; }
         [Required(ErrorMessage = "Bạn cần nhập số điện thoại.")]
         public string PhoneNumber { set; get; }
-
-
-
-
 
     }
 }

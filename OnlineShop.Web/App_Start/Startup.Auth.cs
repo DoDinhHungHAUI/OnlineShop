@@ -15,6 +15,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.Owin.Security.Google;
 
 [assembly: OwinStartup(typeof(OnlineShop.Web.App_Start.Startup))]
 
@@ -56,7 +57,7 @@ namespace OnlineShop.Web.App_Start
                     // This is a security feature which is used when you change a password or add an external login to your account.  
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
                         validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager, DefaultAuthenticationTypes.ApplicationCookie))
                 }
             });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
@@ -99,15 +100,16 @@ namespace OnlineShop.Web.App_Start
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+                appId: "2638394119797745",
+                appSecret: "cd34f397be89e17008c813c9b9440978"
+            );
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "375430716865-1tf49mv86vbsg6h8vfeif1h31j4our5l.apps.googleusercontent.com",
+                ClientSecret = "YO1AQQdgvEJehiQSz2Iv_pH9"
+            });
         }
 
         public class AuthorizationServerProvider : OAuthAuthorizationServerProvider

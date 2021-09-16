@@ -39,8 +39,13 @@ namespace OnlineShop.Model.Models
         public bool? HotFlag { set; get; }
         public int? ViewCount { get; set; }
         public decimal OriginalPrice { set; get; }
-        public int? Quality { get; set; }
+        public int? Quantity { get; set; }
         public string Tags { set; get; }
+
+        public string Color { get; set; }
+        public string Model { get; set; }
+        public string whereProduct { get; set; }
+
 
         [ForeignKey("CategoryID")]
         public virtual ProductCategory ProductCategory { set; get; }

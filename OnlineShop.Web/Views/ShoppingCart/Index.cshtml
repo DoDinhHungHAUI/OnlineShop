@@ -65,10 +65,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <textarea value="" id="txtMessage form-control">Message</textarea>
+                                    <textarea value="" id="txtMessage form-control" style="font-size : 15px;">Message</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="button" id="btnCreateOrder" value="Thanh toán">
+                                    <button type="button" class="btn btn-warning" id="btnCreateOrder"><i class="fab fa-paypal"></i> Thanh toán</button>
+                                    @*<input type="button" id="btnCreateOrder" value="Thanh toán">*@
                                 </div>
 
                                 <div class="clearfix"> </div>
@@ -124,6 +125,35 @@
     {
         text-align:center;
     }
+
+    #txtName, #txtAddress, #txtEmail, #txtPhone, #txtMessage {
+        background-color: white;
+        font-size: 15px;
+        padding-left: 12px;
+        height: 32px;
+    }
+
+    .contact-form input[type="text"], .contact-form textarea {
+        padding: 8px;
+        display: block;
+        width: 98%;
+        background: white;
+        border: 1px solid grey;
+        outline: none;
+        color: #464646;
+        /* font-size: 0.8125em; */
+        font-family: Arial, Helvetica, sans-serif;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: inset 0px 0px 3px rgb(199, 199, 199);
+        -o-box-shadow: inset 0px 0px 3px rgb(199, 199, 199);
+        -webkit-appearance: none;
+    }
+
+    .contact-form div {
+        padding: 2px 0px;
+    }
+  
 
 </style>
 

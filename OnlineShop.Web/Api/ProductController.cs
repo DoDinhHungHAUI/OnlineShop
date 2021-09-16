@@ -15,6 +15,9 @@ using System.Web;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Web.Http.Cors;
+using OfficeOpenXml;
+using OnlineShop.Common;
+using System.Threading.Tasks;
 
 namespace OnlineShop.Web.Api
 {
@@ -25,10 +28,11 @@ namespace OnlineShop.Web.Api
     {
         #region Initialize
         private IProductService _productService;
-
-        public ProductController(IErrorService errorService , IProductService productService) : base(errorService)
+        IReportOrderUserService _reportOrderUserService;
+        public ProductController(IErrorService errorService , IProductService productService , IReportOrderUserService reportOrderUserService) : base(errorService)
         {
             this._productService = productService;
+            this._reportOrderUserService = reportOrderUserService;
         }
 
         #endregion
@@ -78,24 +82,89 @@ namespace OnlineShop.Web.Api
             var newProduct = new Product();
 
             string imageName = null;
+            string multiImage = null;
             var httpRequest = HttpContext.Current.Request;
             //Upload Image
 
             var postedFile = httpRequest.Files["Image"];
-
+            System.Web.HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
             var val = httpRequest["Value"];
 
-            ProductViewModel productVm = JsonConvert.DeserializeObject<ProductViewModel>(val);//convert json to Object
 
-            //create custom filename
-            imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
-            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName);
-            var filePath = HttpContext.Current.Server.MapPath("~/Assets/Images/" + imageName);
-            postedFile.SaveAs(filePath);
+            string sPath = "";
+            sPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Assets/Images/");
+          
+
+            for (int iCnt = 0; iCnt <= hfc.Count - 1; iCnt++)
+            {
+                System.Web.HttpPostedFile hpf = hfc[iCnt];
+                if(hpf.FileName == postedFile.FileName)
+                {
+                    //create custom filename
+                    imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName);
+                    var filePath = HttpContext.Current.Server.MapPath("~/Assets/Images/" + imageName);
+                    postedFile.SaveAs(filePath);
+                }
+                else
+                {
+                    if (hpf.ContentLength > 0)
+                    {
+                        string FileName = new String(Path.GetFileNameWithoutExtension(hpf.FileName).Take(10).ToArray()).Replace(" ", "-");
+
+                        //FileName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
+                        FileName = FileName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(hpf.FileName);//Ten file
+
+                        if (!File.Exists(sPath + FileName))
+                        {
+                            // SAVE THE FILES IN THE FOLDER.  
+                            hpf.SaveAs(sPath + FileName);
+
+                            multiImage = multiImage + FileName + "|";
+
+                            //imagemaster obj = new imagemaster();
+                            //obj.Remark = remark;
+                            //obj.ImageName = FileName;
+                            //wmsEN.imagemasters.Add(obj);
+                            //wmsEN.SaveChanges();
+                        }
+                    }
+                }
+                    
+               
+            }
+
+            //string sPath = "";
+            //sPath = System.Web.Hosting.HostingEnvironment.MapPath("~/image/");
+            //var request = System.Web.HttpContext.Current.Request;
+            //System.Web.HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
+            //var remark = request["remark"].ToString();
+            //for (int iCnt = 0; iCnt <= hfc.Count - 1; iCnt++)
+            //{
+            //    System.Web.HttpPostedFile hpf = hfc[iCnt];
+            //    if (hpf.ContentLength > 0)
+            //    {
+            //        string FileName = (Path.GetFileName(hpf.FileName));
+            //        if (!File.Exists(sPath + FileName))
+            //        {
+            //            // SAVE THE FILES IN THE FOLDER.  
+            //            hpf.SaveAs(sPath + FileName);
+            //            imagemaster obj = new imagemaster();
+            //            obj.Remark = remark;
+            //            obj.ImageName = FileName;
+            //            wmsEN.imagemasters.Add(obj);GetImage
+            //            wmsEN.SaveChanges();
+            //        }
+            //    }
+            //}
+
+
+            ProductViewModel productVm = JsonConvert.DeserializeObject<ProductViewModel>(val);//convert json to Object
 
             //Save to DB
 
             productVm.Image = imageName;
+            productVm.MoreImages = multiImage;
             newProduct.UpdateProduct(productVm);
             newProduct.CreatedDate = DateTime.Now;
             _productService.Add(newProduct);
@@ -286,6 +355,264 @@ namespace OnlineShop.Web.Api
 
             });
         }
+
+        [HttpGet]
+        [Route("getBaseUrl")]
+        //Download image file api
+        public HttpResponseMessage getBaseUrl(HttpRequestMessage request)
+        {
+           
+            return CreateHttpResponse(request, () =>
+            {
+                var url = HttpContext.Current.Request.Url;
+
+                var responseData = url.Scheme + "://" + url.Host + ":" + url.Port + "/Assets/Templates/productImportTemplate.xlsx";
+
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+
+            });
+        }
+
+
+        [HttpGet]
+        [Route("getReportUrl")]
+        //Download image file api
+        public HttpResponseMessage getReportUrl(HttpRequestMessage request)
+        {
+
+            return CreateHttpResponse(request, () =>
+            {
+                var url = HttpContext.Current.Request.Url;
+
+                var responseData = url.Scheme + "://" + url.Host + ":" + url.Port + "/Report";
+
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+
+            });
+        }
+
+
+        [Route("import")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> Import()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                Request.CreateErrorResponse(HttpStatusCode.UnsupportedMediaType, "Định dạng không được server hỗ trợ");
+            }
+
+            var root = HttpContext.Current.Server.MapPath("~/UploadedFiles/Excels");
+            if (!Directory.Exists(root))
+            {
+                Directory.CreateDirectory(root);
+            }
+
+            var provider = new MultipartFormDataStreamProvider(root);
+            var result = await Request.Content.ReadAsMultipartAsync(provider);
+            //do stuff with files if you wish
+
+            //do stuff with files if you wish
+            if (result.FormData["categoryId"] == null)
+            {
+                Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bạn chưa chọn danh mục sản phẩm.");
+            }
+
+            //Upload files
+            int addedCount = 0;
+            int categoryId = 0;
+            int.TryParse(result.FormData["categoryId"], out categoryId);
+            foreach (MultipartFileData fileData in result.FileData)
+            {
+                if (string.IsNullOrEmpty(fileData.Headers.ContentDisposition.FileName))
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotAcceptable, "Yêu cầu không đúng định dạng");
+                }
+
+                string fileName = fileData.Headers.ContentDisposition.FileName;
+                if (fileName.StartsWith("\"") && fileName.EndsWith("\""))
+                {
+                    fileName = fileName.Trim('"');
+                }
+                if (fileName.Contains(@"/") || fileName.Contains(@"\"))
+                {
+                    fileName = Path.GetFileName(fileName);
+                }
+
+                var fullPath = Path.Combine(root, fileName);
+
+                File.Copy(fileData.LocalFileName, fullPath, true);
+
+                //insert to DB
+
+                var listProduct = this.ReadProductFromExcel(fullPath, categoryId);
+                if(listProduct.Count > 0)
+                {
+                    foreach(var product in listProduct)
+                    {
+                        _productService.Add(product);
+                        addedCount++;
+                    }
+                    _productService.Save();
+                }    
+
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, "Đã nhập" + addedCount + " sản phẩm thành công.");
+        }
+        private List<Product> ReadProductFromExcel(string fullPath, int categoryId)
+        {
+            List<Product> listProduct = new List<Product>();
+
+            try
+            {
+                // If you are a commercial business and have
+                // purchased commercial licenses use the static property
+                // LicenseContext of the ExcelPackage class:
+                ExcelPackage.LicenseContext = LicenseContext.Commercial;
+
+                // If you use EPPlus in a noncommercial context
+                // according to the Polyform Noncommercial license:
+
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                using (var package = new ExcelPackage(new FileInfo(fullPath)))
+                {
+
+                    //ExcelWorksheet workSheet = package.Workbook.Worksheets[1]; ;
+
+                    var currentSheet = package.Workbook.Worksheets;
+                    ExcelWorksheet workSheet = currentSheet.First();
+
+                    //try
+                    //{
+                    //    workSheet = package.Workbook.Worksheets[1];
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Console.WriteLine(ex.Message);
+                    //}
+
+                    //List<Product> listProduct = new List<Product>();
+                    ProductViewModel productViewModel;
+                    Product product;
+
+                    decimal originalPrice = 0;
+                    decimal price = 0;
+                    decimal promotionPrice;
+
+                    bool status = false;
+                    int warranty;
+                    int quality;
+
+                    for (int i = workSheet.Dimension.Start.Row + 1; i <= workSheet.Dimension.End.Row; i++)
+                    {
+                        productViewModel = new ProductViewModel();
+                        product = new Product();
+                        productViewModel.Name = workSheet.Cells[i, 1].Value.ToString();
+                        productViewModel.Alias = StringHelper.ToUnsignString(productViewModel.Name);
+                        productViewModel.Description = workSheet.Cells[i, 2].Value.ToString();
+                        if (int.TryParse(workSheet.Cells[i, 3].Value.ToString(), out warranty))
+                        {
+                            productViewModel.Warranty = warranty;
+                        }
+
+                        decimal.TryParse(workSheet.Cells[i, 4].Value.ToString().Replace(",", ""), out originalPrice);
+                        productViewModel.OriginalPrice = originalPrice;
+
+                        decimal.TryParse(workSheet.Cells[i, 5].Value.ToString().Replace(",", ""), out price);
+                        productViewModel.Price = price;
+
+                        if (decimal.TryParse(workSheet.Cells[i, 6].Value.ToString(), out promotionPrice))
+                        {
+                            productViewModel.PromotionPrice = promotionPrice;
+
+                        }
+
+                        if (int.TryParse(workSheet.Cells[i, 7].Value.ToString(), out quality))
+                        {
+                            productViewModel.Quantity = quality;
+                        }
+
+                        productViewModel.Content = workSheet.Cells[i, 8].Value.ToString();
+                        productViewModel.MetaKeyword = workSheet.Cells[i, 9].Value.ToString();
+                        productViewModel.MetaDescription = workSheet.Cells[i, 10].Value.ToString();
+
+                        productViewModel.CategoryID = categoryId;
+
+                        bool.TryParse(workSheet.Cells[i, 11].Value.ToString(), out status);
+                        productViewModel.Status = status;
+
+                        productViewModel.Color = workSheet.Cells[i, 12].Value.ToString();
+                        productViewModel.Model = workSheet.Cells[i, 13].Value.ToString();
+                        productViewModel.whereProduct = workSheet.Cells[i, 14].Value.ToString();
+
+                        product.UpdateProduct(productViewModel);
+                        listProduct.Add(product);
+
+                    }
+                    return listProduct;
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return listProduct;
+           
+        }
+
+        [HttpGet]
+        [Route("ExportXls/{filter}")]
+        public async Task<HttpResponseMessage> ExportXls(HttpRequestMessage request , string filter = null)
+        {
+            string fileName = string.Concat("Product_" + DateTime.Now.ToString("yyyyMMddhhmmsss") + ".xlsx");
+
+            string filePath = HttpContext.Current.Server.MapPath("~/Report");
+            //var root = HttpContext.Current.Server.MapPath("~/UploadedFiles/Excels");
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+            string fullPath = Path.Combine(filePath, fileName);//~/folderReport/_product
+            try
+            {
+                var data = _productService.GetListProduct(filter).ToList();
+                await ReportHelper.GenerateXls(data, fullPath);
+               
+                return request.CreateResponse(HttpStatusCode.OK, fileName);
+            }
+            catch(Exception ex)
+            {
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        //[HttpGet]
+        //[Route("ExportPdf")]
+        //public async Task<HttpResponseMessage> ExportPdf(HttpRequestMessage request, string userId)
+        //{
+        //    string fileName = string.Concat("Product" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + ".pdf");
+        //    string filePath = HttpContext.Current.Server.MapPath("~/Report");
+        //    if (!Directory.Exists(filePath))
+        //    {
+        //        Directory.CreateDirectory(filePath);
+        //    }
+
+        //    string fullPath = Path.Combine(filePath, fileName);
+        //    try
+        //    {
+        //        var template = File.ReadAllText(HttpContext.Current.Server.MapPath("~/Assets/Templates/OrderDetails.html"));
+
+        //        //var replaces = new Dictionary<string, string>();
+        //        var listReportOrderUser = _reportOrderUserService.GetReportOrder(userId).ToList();
+
+        //        template = template.Parse(listReportOrderUser);
+        //    }
+
+        //}
+
+
 
 
 

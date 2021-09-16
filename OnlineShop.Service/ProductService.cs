@@ -22,7 +22,7 @@ namespace OnlineShop.Service
         IEnumerable<Product> GetLastest(int top);
         IEnumerable<Product> GetHotProduct(int top);
         IEnumerable<Product> GetListProductByName(string name);
-
+        IEnumerable<Product> GetListProduct(string keyword);
         IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow);
 
         IEnumerable<Product> Search(string keyword, int page, int pageSize, string sort, out int totalRow);
@@ -35,7 +35,7 @@ namespace OnlineShop.Service
         void IncreaseView(int id);
         IEnumerable<Product> GetListProductByTag(string tagId, int page, int pagesize, out int totalRow);
 
-
+        bool SellProduct(int productId, int quantity);
 
     }
 
@@ -238,5 +238,27 @@ namespace OnlineShop.Service
             var model = _productRepository.GetListProductByTag(tagId, page, pagesize, out totalRow);
             return model;
         }
+
+        public bool SellProduct(int productId , int quantity)
+        {
+            var product = _productRepository.GetSingleById(productId);
+            if(product.Quantity < quantity)
+            {
+                return false;
+            }
+            product.Quantity -= quantity;
+            return true;
+        }
+
+        public IEnumerable<Product> GetListProduct(string keyword)
+        {
+            IEnumerable<Product> query;
+            if (!string.IsNullOrEmpty(keyword))
+                query = _productRepository.GetMulti(x => x.Name.Contains(keyword));
+            else
+                query = _productRepository.GetAll();
+            return query;
+        }
+
     }
 }
