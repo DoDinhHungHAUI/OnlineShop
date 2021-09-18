@@ -10,6 +10,11 @@ namespace OnlineShop.Data.Repositories
     public interface IProductRepository : IRepository<Product>
     {
         IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, out int totalRow);
+        bool checkParentCategory(int categoryId);
+
+        
+        IEnumerable<Product> GetListProductByParentCategry(int categoryId);
+        
     }
 
     public class ProductRepository : RepositoryBase<Product>, IProductRepository
@@ -17,6 +22,30 @@ namespace OnlineShop.Data.Repositories
         public ProductRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
+
+
+
+
+        public IEnumerable<Product> GetListProductByParentCategry(int categoryId)
+        {
+            //var query = from p in DbContext.Products where (from pc in DbContext.ProductCategories where pc.ParentID == categoryId && pc.Status select pc.ID).Contains(p.CategoryID) select p;
+            var query1 = DbContext.ProductCategories.Where(pc => pc.ParentID == categoryId && pc.Status).Select(pc => pc.ID).ToList();
+            var query = DbContext.Products.Where(p => query1.Contains(p.CategoryID)).Select(p => p).ToList();
+
+            return query;
+        }
+
+        public bool checkParentCategory(int categoryId)
+        {
+            var query = DbContext.ProductCategories.Where(p => p.ParentID == categoryId && p.Status).ToList();
+            if(query.Count() > 0)
+            {
+                return true;
+            }    
+
+            return false;
+        }
+
 
         public IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, out int totalRow)
         {

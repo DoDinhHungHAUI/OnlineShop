@@ -33,7 +33,7 @@ var cart = {
                 $('#amount_' + productid).text(0);
             }
 
-            $('#lblTotalOrder').text(numeral(cart.getTotalOrder()).format('0,0') + "VNĐ");
+            $('#lblTotalOrder').text(numeral(cart.getTotalOrder()).format('0,0') + "Vnđ");
             cart.updateAll();
         });
 
@@ -225,17 +225,21 @@ var cart = {
                     var template = $('#tplCart').html();
                     var html = '';
                     var data = res.data;
+
+                    var searchRegExp = /,/gi;
+                    var replaceWith = '.';
+
+                  
                     $.each(data, function (i, item) {
                         html += Mustache.render(template, {
                             ProductId: item.ProductId,
                             ProductName: item.Product.Name,
                             Image: item.Product.Image,
                             Price: item.Product.Price,
-                            PriceF: numeral(item.Product.Price).format('0,0'),
+                            PriceF: numeral(item.Product.Price).format('0,0').replace(searchRegExp, replaceWith),
                             Quantity: item.Quantity,
-                            Amount: numeral(item.Quantity * item.Product.Price).format('0,0')
+                            Amount: numeral(item.Quantity * item.Product.Price).format('0,0').replace(searchRegExp, replaceWith)
                         });
-
                     });
                     $("#CountcartItem").text(res.Counter + " Items")
 
@@ -245,7 +249,7 @@ var cart = {
                         $('#cartContent').html('Không có sản phẩm nào trong giỏ hàng');
                     }
 
-                    $('#lblTotalOrder').text(numeral(cart.getTotalOrder()).format('0,0'));
+                    $('#lblTotalOrder').text(numeral(cart.getTotalOrder()).format('0,0').replace(searchRegExp, replaceWith) + "Vnđ");
                    
                     cart.registerEvent();
                 }

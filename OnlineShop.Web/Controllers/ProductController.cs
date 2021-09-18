@@ -24,7 +24,6 @@ namespace OnlineShop.Web.Controllers
             this._productCategoryService = productCategoryService;
         }
 
-
         // GET: Product
         public ActionResult Detail(int id)
         {
@@ -106,7 +105,6 @@ namespace OnlineShop.Web.Controllers
             return View(paginationSet);
         }
 
-
         public ActionResult ListByTag(string tagId , int page = 1)
         {
             int pageSize = ConfigHelper.pageSize;
@@ -125,8 +123,6 @@ namespace OnlineShop.Web.Controllers
             };
 
             return View(paginationSet);
-
-
         }
 
 

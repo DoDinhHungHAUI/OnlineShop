@@ -106,7 +106,6 @@ namespace OnlineShop.Web.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-
                 }
                 else
                 {
@@ -121,7 +120,7 @@ namespace OnlineShop.Web.Controllers
 
         [HttpPost]
         //[CaptchaValidation("CaptchaCode", "registerCaptcha", "Mã xác nhận không đúng")]
-        //[ValidateGoogleCaptcha]
+        [ValidateGoogleCaptcha]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
 

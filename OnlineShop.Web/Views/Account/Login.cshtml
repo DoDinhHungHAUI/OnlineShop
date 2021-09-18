@@ -8,36 +8,45 @@
 }
 
 <div class="content-grids">
-    <div class="login-right">
-        <div class="title_dangNhap">
-            <h3>Đăng nhập</h3>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="login-right">
+                <div class="title_dangNhap">
+                    <h3>Đăng nhập</h3>
+                    <hr />
+                </div>
+                <p style="color : red;">@ViewBag.Message</p>
+
+                @using (Html.BeginForm("Login", "Account", new { returnUrl = @ViewBag.ReturnUr }, FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <label>Tài Khoản <span style="color : red;"> (*) </span></label>
+                        @Html.TextBoxFor(model => model.UserName, new { placeholder = "Tài khoản", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mật khẩu <span style="color : red;"> (*) </span></label>
+                        @Html.PasswordFor(model => model.Password, new { placeholder = "Mật khẩu", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-warning" type="submit"><i class="fas fa-sign-in-alt"></i> Đăng nhâp</button>
+                        @*<input type="submit" value="Đăng nhập" class="btn btn-warning" />*@
+                    </div>
+
+                }
+
+            </div>
         </div>
-
-        <p style="color : red;">@ViewBag.Message</p>
-
-        @using (Html.BeginForm("Login", "Account", new { returnUrl = @ViewBag.ReturnUr }, FormMethod.Post))
-        {
-            <div class="form-group">
-                <label>Tài Khoản <span style="color : red;"> (*) </span></label>
-                @Html.TextBoxFor(model => model.UserName, new { placeholder = "Tài khoản", @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.UserName ,  "", new { @class = "text-danger" })
+        <div class="col-md-5">
+            <div class="loginWithSocial">
+                @Html.Partial("ExternalLoginsListPartial", new OnlineShop.Web.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
             </div>
-
-            <div class="form-group">
-                <label>Mật khẩu <span style="color : red;"> (*) </span></label>
-                @Html.PasswordFor(model => model.Password, new { placeholder = "Mật khẩu", @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Password , "" , new { @class = "text-danger" })
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Đăng nhập" class="btn btn-warning" />
-            </div>
-
-        }
-
+        </div>
     </div>
-    @Html.Partial("ExternalLoginsListPartial", new OnlineShop.Web.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-
+   
     <div class="login-left">
         <h3>Chưa có tài khoản</h3>
         <p>Nếu bạn chưa có tài khoản vui lòng đăng ký tại link dưới đây:</p>
@@ -48,7 +57,7 @@
 
 <style>
     .login-right{
-        width : 50% !important;
+        width : 90% !important;
     }
     #UserName{
         height : 34px;
@@ -75,6 +84,10 @@
 
     .text-danger{
         color : red;
+    }
+
+    .loginWithSocial{
+        width : 90%;
     }
 </style>
 

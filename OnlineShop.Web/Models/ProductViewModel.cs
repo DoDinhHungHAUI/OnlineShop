@@ -14,7 +14,7 @@ namespace OnlineShop.Web.Models
         public string Image { get; set; }
         public string MoreImages { get; set; }
         public Decimal Price { get; set; }
-        public Decimal? PromotionPrice { get; set; }
+        public Decimal PromotionPrice { get; set; }
         public int? Warranty { set; get; }
         public string Description { set; get; }
         public string Content { set; get; }

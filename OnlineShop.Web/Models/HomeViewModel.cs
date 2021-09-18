@@ -9,7 +9,9 @@ namespace OnlineShop.Web.Models
     public class HomeViewModel
     {
         public IEnumerable<SlideViewModel> slideView { get; set; }
-        public IEnumerable<ProductViewModel> LastestProducts { set; get; }
+        public IEnumerable<ProductViewModel> LastestLaptop { set; get; }
+
+        public IEnumerable<ProductViewModel> lastestPhone { get; set; }
         public IEnumerable<ProductViewModel> TopSaleProducts { set; get; }
 
         public string Title { set; get; }

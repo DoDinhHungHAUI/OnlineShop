@@ -25,26 +25,26 @@
 
             <div class="row-fluid">
 
-                @for (int i = 0; i < Model.Items.Count(); i += 3)
+                @for (int i = 0; i < Model.Items.Count(); i += 4)
                 {
                     <ul class="thumbnails">
-                        @foreach (var product in Model.Items.Skip(i).Take(3))
+                        @foreach (var product in Model.Items.Skip(i).Take(4))
                         {
-                            var url = "/" + product.Alias + ".p" + product.ID;
+                            var url = "/" + product.Alias + ".p-" + product.ID + ".html";
 
                             <li class="span4">
                                 <div class="thumbnail">
-                                    <a href="product_details.html" class="overlay"></a>
+                                    <a href="@url" class="overlay"></a>
                                     <a class="zoomTool" href="@url" title="add to cart" style="display: none;"><span class="icon-search"></span> Chi tiết</a>
                                     <a href="product_details.html"><img src="~/Assets/Images/@product.Image" alt="@product.Name"></a>
                                     <div class="caption cntr">
                                         <p>@product.Name</p>
-                                        <p><strong> @(product.Price == 0 ? "Liên hệ" : product.Price.ToString("N0"))</strong></p>
-                                        <h4><a class="shopBtn" href="#" title="add to cart">Thêm vào giỏ hàng</a></h4>
-                                        <div class="actionList">
-                                            <a class="pull-left" href="#">Add to Wish List </a>
-                                            <a class="pull-left" href="#"> Add to Compare </a>
-                                        </div>
+                                        <p><strong> @(product.Price == 0 ? "Liên hệ" : product.Price.ToString("N0").Replace("," , ".")) Vnđ</strong></p>
+                                        <h4><a class="shopBtn btnAddToCart" href="#" data-id="@product.ID" title="add to cart">Thêm vào giỏ hàng</a></h4>
+                                        @*<div class="actionList">
+                                                <a class="pull-left" href="#">Add to Wish List </a>
+                                                <a class="pull-left" href="#"> Add to Compare </a>
+                                            </div>*@
                                         <br class="clr">
                                     </div>
                                 </div>
@@ -53,6 +53,36 @@
 
                     </ul>
                 }
+
+
+                @*@for (int i = 0; i < Model.Items.Count(); i += 3)
+                    {
+                        <ul class="thumbnails">
+                            @foreach (var product in Model.Items.Skip(i).Take(3))
+                            {
+                                var url = "/" + product.Alias + ".p" + product.ID;
+
+                                <li class="span4">
+                                    <div class="thumbnail">
+                                        <a href="product_details.html" class="overlay"></a>
+                                        <a class="zoomTool" href="@url" title="add to cart" style="display: none;"><span class="icon-search"></span> Chi tiết</a>
+                                        <a href="product_details.html"><img src="~/Assets/Images/@product.Image" alt="@product.Name"></a>
+                                        <div class="caption cntr">
+                                            <p>@product.Name</p>
+                                            <p><strong> @(product.Price == 0 ? "Liên hệ" : product.Price.ToString("N0").Replace(",", ".")) Vnđ</strong></p>
+                                            <h4><a class="shopBtn" href="#" title="add to cart">Thêm vào giỏ hàng</a></h4>
+                                            <div class="actionList">
+                                                <a class="pull-left" href="#">Add to Wish List </a>
+                                                <a class="pull-left" href="#"> Add to Compare </a>
+                                            </div>
+                                            <br class="clr">
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    }*@
 
 
                 @*<ul class="thumbnails">
@@ -304,6 +334,7 @@ else
     </div>*@
 
 
+
 <style>
     .thumbnails > li {
         margin-bottom: 5px !important;
@@ -315,5 +346,13 @@ else
 
     .firsChild {
         margin-left: 0px !important;
+    }
+
+    .carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img {
+        height: 240px !important;
+    }
+
+    .row-fluid .span4 {
+        width: 23% !important;
     }
 </style>

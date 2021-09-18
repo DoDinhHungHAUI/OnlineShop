@@ -86,23 +86,23 @@
                             {
                                 foreach (var item in arrayImage)
                                 {
-                            <li data-thumb="/Assets/Images/@item">
-                                <div class="thumb-image"> <img src="~/Assets/Images/@item" data-imagezoom="true" class="img-responsive" alt="" /> </div>
-                            </li>
+                                    <li data-thumb="/Assets/Images/@item">
+                                        <div class="thumb-image"> <img src="~/Assets/Images/@item" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+                                    </li>
+                                }
                             }
-                        }
 
                         }
 
                         @*<li data-thumb="/Assets/Images/@Model.Image">
-                            <div class="thumb-image"> <img src="~/Assets/Images/@Model.Image" data-imagezoom="true" class="img-responsive" alt="" /> </div>
-                        </li>
-                        <li data-thumb="/Assets/Images/@Model.Image">
-                            <div class="thumb-image"> <img src="~/Assets/Images/@Model.Image" data-imagezoom="true" class="img-responsive" alt="" /> </div>
-                        </li>
-                        <li data-thumb="/Assets/Images/@Model.Image">
-                            <div class="thumb-image"> <img src="~/Assets/Images/@Model.Image" data-imagezoom="true" class="img-responsive" alt="" /> </div>
-                        </li>*@
+                                <div class="thumb-image"> <img src="~/Assets/Images/@Model.Image" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+                            </li>
+                            <li data-thumb="/Assets/Images/@Model.Image">
+                                <div class="thumb-image"> <img src="~/Assets/Images/@Model.Image" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+                            </li>
+                            <li data-thumb="/Assets/Images/@Model.Image">
+                                <div class="thumb-image"> <img src="~/Assets/Images/@Model.Image" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+                            </li>*@
                     </ul>
                 </div>
             </div>
@@ -111,7 +111,7 @@
 
             <p class="mb-2 text-muted text-uppercase small" style="font-size : 15px ; font-weight : 700">@Model.Name</p>
 
-            <p><span class="mr-1"><strong style="color :#ff9f1a">@Model.Price VNĐ</strong></span></p>
+            <p><span class="mr-1"><strong style="color :#ff9f1a">@Model.Price.ToString("N0").Replace(",", ".") Vnđ</strong></span></p>
 
             <div class="table-responsive">
                 <table class="table table-sm table-borderless mb-0">
@@ -153,6 +153,44 @@
                 </div>
             </div>
 
+            <div class="styles__ProductActionV2Container-sc-kdypyf-0 dzVRbr">
+                <h5 style="font-weight : 700;">Tag :</h5>
+                <ul class="taglist">
+                    @foreach (var tag in (IEnumerable<OnlineShop.Web.Models.TagViewModel>)ViewBag.Tags)
+                    {
+                        <li><a href="/tag/@(tag.ID).html"><span class="badge badge-dark"># @(tag.Name)</span></a></li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h3>Mô tả sản phẩm</h3>
+        @Html.Raw(Model.Content)
+    </div>
+
+
+
+    @*<div class="detalis-image-details">
+
+            <div>
+                <h3>Tên Sản phẩm : <span>@Model.Name</span></h3>
+                <h2>Giá : <span>@Model.Price</span><span>@Model.PromotionPrice</span></h2>
+                <h2>Bảo hành : <span>@Model.Warranty</span> Tháng</h2>
+            </div>
+
+            <div class="brand-history">
+                <h3>Mô tả sản phẩm :</h3>
+                <p>@Model.Content</p>
+                <a href="#" data-id="@Model.ID" class="btnAddToCart">Thêm vào giỏ hàng</a>
+            </div>
+
+            <div>
+
+            </div>
+            <div class="clear"> </div>
+
             <div class="tag">
                 <h5>Tag :</h5>
                 <ul class="taglist">
@@ -163,55 +201,14 @@
 
                 </ul>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <h3>Mô tả sản phẩm</h3>
-        <p>
-            Chuẩn Kháng nước, Chuẩn kháng bụi, Đèn pin, Sạc pin nhanh, Mặt kính 2.5D, Chặn tin nhắn, Tản nhiệt nước carbon, Samsung Pay, Trợ lý ảo Samsung Bixby, Màn hình luôn hiển thị AOD Chặn cuộc gọi, Mở khóa bằng khuôn mặt, Quét mống mắt, Mở khoá vân tay dưới màn hình
-        </p>
-    </div>
-
- 
-
-    @*<div class="detalis-image-details">
-
-        <div>
-            <h3>Tên Sản phẩm : <span>@Model.Name</span></h3>
-            <h2>Giá : <span>@Model.Price</span><span>@Model.PromotionPrice</span></h2>
-            <h2>Bảo hành : <span>@Model.Warranty</span> Tháng</h2>
-        </div>
-
-        <div class="brand-history">
-            <h3>Mô tả sản phẩm :</h3>
-            <p>@Model.Content</p>
-            <a href="#" data-id="@Model.ID" class="btnAddToCart">Thêm vào giỏ hàng</a>
-        </div>
-
-        <div>
-
-        </div>
-        <div class="clear"> </div>
-
-        <div class="tag">
-            <h5>Tag :</h5>
-            <ul class="taglist">
-                @foreach (var tag in (IEnumerable<OnlineShop.Web.Models.TagViewModel>)ViewBag.Tags)
-                {
-                    <li><a href="/tag/@(tag.ID).html"><span class="badge badge-dark">@(tag.Name)</span></a></li>
-                }
-
-            </ul>
-        </div>
 
 
-    </div>*@
+        </div>*@
 
     <div class="clear"> </div>
 
     <!--Sản phẩm liên quan-->
-
-    <h3 class="title text-center">Sản phẩm liên quan</h3>
+    <h2 class="title text-center">Sản phẩm liên quan</h2>
     <div class="section group">
 
         @{
@@ -234,9 +231,9 @@
                                 <a href="product_details.html"><img src="~/Assets/Images/@product.Image" alt="@product.Name"></a>
                                 <div class="caption cntr">
                                     <p>@product.Name</p>
-                                    <p><strong> @(product.Price == 0 ? "Liên hệ" : product.Price.ToString("N0"))</strong></p>
+                                    <p><strong> @(product.Price == 0 ? "Liên hệ" : product.Price.ToString("N0").Replace(",", ".")) Vnđ</strong></p>
                                     <h4><a class="shopBtn btnAddToCart" href="#" title="add to cart" data-id="@product.ID">Thêm vào giỏ hàng</a></h4>
-                                   
+
                                     <br class="clr">
                                 </div>
                             </div>
@@ -315,17 +312,42 @@
 
 
 <style>
-    h2 .title {
+    h2.title {
         color: #FE980F;
         font-family: 'Roboto', sans-serif;
         font-size: 18px;
         font-weight: 700;
         margin: 0 15px;
         text-transform: uppercase;
-        margin-bottom: 30px;
+        margin-bottom: 13px;
+        margin-top: 20px;
         position: relative;
     }
 
+    h2.title::before {
+        content: " ";
+        position: absolute;
+        background: rgb(255, 255, 255);
+        bottom: -6px;
+        width: 220px;
+        height: 30px;
+        z-index: -1;
+        left: 50%;
+        margin-left: -110px;
+    }
+
+    h2.title::after {
+        content: " ";
+        position: absolute;
+        border: 1px solid rgb(245, 245, 245);
+        bottom: 8px;
+        left: 0px;
+        width: 100%;
+        height: 0px;
+        z-index: -2;
+    }
+
+   
     .text-center {
         text-align: center;
     }
@@ -403,5 +425,22 @@
         margin-left: 16px;
         margin-right: 16px;
     }
+    .badge {
+        margin-top : 11px;
+        display: inline-block;
+        min-width: 10px;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: #777;
+        border-radius: 4px;
+    }
+    
+
 
 </style>

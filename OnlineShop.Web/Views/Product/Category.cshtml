@@ -34,7 +34,7 @@
                                     <a href="product_details.html"><img src="~/Assets/Images/@product.Image" alt="@product.Name"></a>
                                     <div class="caption cntr">
                                         <p>@product.Name</p>
-                                        <p><strong> @(product.Price == 0 ? "Liên hệ" : product.Price.ToString("N0"))</strong></p>
+                                        <p><strong> @(product.Price == 0 ? "Liên hệ" : product.Price.ToString("N0").Replace("," , ".")) Vnđ</strong></p>
                                         <h4><a class="shopBtn btnAddToCart" href="#"  data-id="@product.ID"   title="add to cart">Thêm vào giỏ hàng</a></h4>
                                         @*<div class="actionList">
                                             <a class="pull-left" href="#">Add to Wish List </a>

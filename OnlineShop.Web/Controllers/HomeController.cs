@@ -28,22 +28,27 @@ namespace OnlineShop.Web.Controllers
         [OutputCache(Duration = 60, Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Index()
         {
-            
             var slideModel = _commonService.GetSlides();
             var slideView = Mapper.Map<IEnumerable<Slide>, IEnumerable<SlideViewModel>>(slideModel);
             HomeViewModel homeViewModel = new HomeViewModel();
 
-            var lastestProductModel = _productService.GetLastest(4);
-            var topSaleProductModel = _productService.GetHotProduct(4);
-            var lastestProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(lastestProductModel);
+            var lastestLaptopModel = _productService.GetLastestLaptop(4);
+
+            var lastestPhone = _productService.GetLastestPhone(4);
+
+           
+            var topSaleProductModel = _productService.GetHotProduct(12).ToList();
+
+            var lastestLaptopViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(lastestLaptopModel);
+            var lastestPhoneViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel >>(lastestPhone);
+
             var topSaleProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(topSaleProductModel);
 
-            homeViewModel.LastestProducts = lastestProductViewModel;
+            homeViewModel.LastestLaptop = lastestLaptopViewModel;
+            homeViewModel.lastestPhone = lastestPhoneViewModel;
+
             homeViewModel.TopSaleProducts = topSaleProductViewModel;
             homeViewModel.slideView = slideView;
-
-
-
 
             try
             {
@@ -60,12 +65,13 @@ namespace OnlineShop.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 3600)]
+        //[OutputCache(Duration = 3600)]
         public ActionResult SideBar()//Category
         {
 
-            var model = _productCategoryService.GetAll();
-            var listProductCategoryViewModel = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(model);
+            var model = _productCategoryService.GetAll().ToList();
+            var listCategory = model.Where(x => x.Status).ToList();
+            var listProductCategoryViewModel = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(listCategory);
 
             return PartialView(listProductCategoryViewModel);
         }

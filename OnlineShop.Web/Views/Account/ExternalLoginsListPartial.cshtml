@@ -1,6 +1,6 @@
 ﻿@model OnlineShop.Web.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
-<h4>Đăng nhập bằng mạng xã hội</h4>
+<h4 style="margin-top : 26px !important;font-size : 18px !important;text-align : center;">Đăng nhập bằng mạng xã hội</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
@@ -21,3 +21,37 @@
     }
 
 }
+
+
+<style>
+    #Google {
+        background: #db4437;
+        color: white;
+        width: 100%;
+        line-height: 26px;
+        height: 40px;
+        font-size: 21px;
+        margin-top : 34px;
+    }
+   
+
+    #Facebook {
+        margin-top: 50px;
+        width: 100%;
+        color: white;
+        background-color: #4267B2;
+        height: 40px;
+        line-height: 26px;
+        font-size: 19px;
+    }
+
+
+
+
+</style>
+
+
+
+
+
+

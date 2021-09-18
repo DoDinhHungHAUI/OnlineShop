@@ -19,7 +19,9 @@ namespace OnlineShop.Service
         IEnumerable<Product> GetAll();
         IEnumerable<Product> GetAll(string keyword);
 
-        IEnumerable<Product> GetLastest(int top);
+        IEnumerable<Product> GetLastestLaptop(int top);
+
+        IEnumerable<Product> GetLastestPhone(int top);
         IEnumerable<Product> GetHotProduct(int top);
         IEnumerable<Product> GetListProductByName(string name);
         IEnumerable<Product> GetListProduct(string keyword);
@@ -45,14 +47,16 @@ namespace OnlineShop.Service
         private ITagRepository _tagRepository;
         private IProductTagRepository _productTagRepository;
         private IUnitOfWork _unitOfWork;
+        private IProductCategoryRepository _productCategoryRepository;
 
         public ProductService(IProductRepository productRepository, IProductTagRepository productTagRepository,
-            ITagRepository _tagRepository, IUnitOfWork unitOfWork)
+            ITagRepository _tagRepository, IUnitOfWork unitOfWork , IProductCategoryRepository productCategoryRepository)
         {
             this._productRepository = productRepository;
             this._productTagRepository = productTagRepository;
             this._tagRepository = _tagRepository;
             this._unitOfWork = unitOfWork;
+            this._productCategoryRepository = productCategoryRepository;
         }
 
         public Product Add(Product Product)
@@ -110,18 +114,37 @@ namespace OnlineShop.Service
 
         public IEnumerable<Product> GetHotProduct(int top)
         {
-            return _productRepository.GetMulti(x => x.Status && x.HotFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
+            return _productRepository.GetMulti(x => x.Status).Where(x => x.PromotionPrice > 0).OrderByDescending(x => (x.Price - x.PromotionPrice)).OrderByDescending(x => x.CreatedDate).Take(top);
         }
 
-        public IEnumerable<Product> GetLastest(int top)
+        public IEnumerable<Product> GetLastestLaptop(int top)
         {
-            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
+            var listCategoryId = _productCategoryRepository.GetMulti(x => x.Status).Where(x => x.ParentID == 44).Select(x => x.ID).ToList();
+
+            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Where(x => listCategoryId.Contains(x.CategoryID)).Take(top);
+        }
+
+        public IEnumerable<Product> GetLastestPhone(int top)
+        {
+
+            var listCategoryId = _productCategoryRepository.GetMulti(x => x.Status).Where(x => x.ParentID == 45).Select(x => x.ID).ToList();
+
+
+            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Where(x => listCategoryId.Contains(x.CategoryID)).Take(top);
         }
 
         public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize , string sort, out int totalRow)
         {
-            var query = _productRepository.GetMulti(x => x.Status && x.CategoryID == categoryId);
-
+            IEnumerable<Product> query;
+            if (_productRepository.checkParentCategory(categoryId) == true)
+            {
+                query = _productRepository.GetListProductByParentCategry(categoryId).ToList();
+            }
+            else
+            {
+                query = _productRepository.GetMulti(x => x.Status && x.CategoryID == categoryId);
+            }
+           
             switch(sort)
             {
                 case "popular" :

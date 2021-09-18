@@ -3,42 +3,53 @@
 <div class="wrap">
     <!----start-Header---->
     <div class="header">
-        <div class="search-bar">
-            <form method="get" action="/tim-kiem.html">
-                <input id="txtSearch" type="text" name="keyword" placeholder="Từ khóa...">
-                <input type="submit" value="Search" />
-            </form>
-        </div>
-        <div class="clear"> </div>
-        <div class="header-top-nav">
-            <ul>
 
-                @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { @id = "frmLogout" }))
-                { 
-                    @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-6">
+                <h3 style="font-family: cursive; color: rgb(255, 133, 51);">HungOnlineShop</h3>
+                <h5 style=" margin-left: 20px; line-height: 0px; font-family: cursive;color : rgb(255, 51, 51)">Gió đông , Tri kỷ về mua sắm</h5>
+            </div>
+            <div class="col-md-6">
+                <div class="search-bar">
+                    <form method="get" action="/tim-kiem.html">
+                        <input id="txtSearch" type="text" name="keyword" placeholder="Từ khóa...">
+                        <input type="submit" value="Search" />
+                    </form>
+                </div>
+                <div class="clear"> </div>
+                <div class="header-top-nav">
+                    <ul>
 
-                    if (Request.IsAuthenticated)
-                    {
-                        <li><a href="/tai-khoan.html">Xin chào : @User.Identity.Name</a></li>
-                        <li><a href="#" id="btnLogout">Đăng xuất</a></li>
-                    }
-                    else
-                    {
-                        <li><a href="dang-ky.html"><i class="fas fa-user-plus"></i> Đăng ký</a></li>
-                        <li><a href="dang-nhap.html"> <i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
-                    }
+                        @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { @id = "frmLogout" }))
+                        {
+                            @Html.AntiForgeryToken()
 
-                    @*<li><a href="#">Delivery</a></li>
+                            if (Request.IsAuthenticated)
+                            {
+                                <li><a href="/tai-khoan.html">Xin chào : @User.Identity.Name</a></li>
+                                <li><a href="#" id="btnLogout">Đăng xuất</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="dang-ky.html"><i class="fas fa-user-plus"></i> Đăng ký</a></li>
+                                <li><a href="dang-nhap.html"> <i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
+                            }
+
+                            @*<li><a href="#">Delivery</a></li>
                     <li><a href="#">Checkout</a></li>
                     <li><a href="#">My account</a></li>*@
 
-                    @Html.Action("CartPartial", "ShoppingCart")
+                            @Html.Action("CartPartial", "ShoppingCart")
 
-                }
+                        }
 
-            </ul>
+                    </ul>
+                </div>
+                <div class="clear"> </div>
+            </div>
         </div>
-        <div class="clear"> </div>
+
+        
     </div>
 </div>
 <div class="clear"> </div>
@@ -78,7 +89,12 @@
     }
 
     .search-bar{
-        height : 33px !important;
+        height : 31px !important;
+    }
+    .search-bar {
+        background: #fff;
+        margin: 8px 0px 12.5px 0px;
+        border-radius: 0.3em;
     }
 
     .logo {

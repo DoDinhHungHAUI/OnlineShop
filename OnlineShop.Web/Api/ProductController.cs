@@ -100,14 +100,18 @@ namespace OnlineShop.Web.Api
                 System.Web.HttpPostedFile hpf = hfc[iCnt];
                 if(hpf.FileName == postedFile.FileName)
                 {
+
                     //create custom filename
                     imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName);
                     var filePath = HttpContext.Current.Server.MapPath("~/Assets/Images/" + imageName);
+                    //multiImage = multiImage + imageName + "|";
                     postedFile.SaveAs(filePath);
+
                 }
                 else
                 {
+
                     if (hpf.ContentLength > 0)
                     {
                         string FileName = new String(Path.GetFileNameWithoutExtension(hpf.FileName).Take(10).ToArray()).Replace(" ", "-");
@@ -129,6 +133,7 @@ namespace OnlineShop.Web.Api
                             //wmsEN.SaveChanges();
                         }
                     }
+
                 }
                     
                
@@ -464,7 +469,6 @@ namespace OnlineShop.Web.Api
         private List<Product> ReadProductFromExcel(string fullPath, int categoryId)
         {
             List<Product> listProduct = new List<Product>();
-
             try
             {
                 // If you are a commercial business and have
@@ -479,9 +483,7 @@ namespace OnlineShop.Web.Api
 
                 using (var package = new ExcelPackage(new FileInfo(fullPath)))
                 {
-
                     //ExcelWorksheet workSheet = package.Workbook.Worksheets[1]; ;
-
                     var currentSheet = package.Workbook.Worksheets;
                     ExcelWorksheet workSheet = currentSheet.First();
 
@@ -563,7 +565,7 @@ namespace OnlineShop.Web.Api
         }
 
         [HttpGet]
-        [Route("ExportXls/{filter}")]
+        [Route("ExportXls/{filter?}")]
         public async Task<HttpResponseMessage> ExportXls(HttpRequestMessage request , string filter = null)
         {
             string fileName = string.Concat("Product_" + DateTime.Now.ToString("yyyyMMddhhmmsss") + ".xlsx");
