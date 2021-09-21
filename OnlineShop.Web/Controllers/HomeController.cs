@@ -36,7 +36,6 @@ namespace OnlineShop.Web.Controllers
 
             var lastestPhone = _productService.GetLastestPhone(4);
 
-           
             var topSaleProductModel = _productService.GetHotProduct(12).ToList();
 
             var lastestLaptopViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(lastestLaptopModel);
@@ -90,6 +89,9 @@ namespace OnlineShop.Web.Controllers
         [ChildActionOnly]
         public ActionResult Header()
         {
+
+            var url = System.Web.HttpContext.Current.Request.Url;
+            ViewBag.urlHome = url.Scheme + "://" + url.Host + ":" + url.Port;
             return PartialView();
         }
 

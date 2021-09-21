@@ -14,11 +14,9 @@ namespace OnlineShop.Web
             // Web API configuration and services
             /*config.EnableCors(new EnableCorsAttribute("http://localhost:4200", "*", "*"));*/
 
+            /*var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            config.EnableCors(cors);*/
 
-            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
-            config.EnableCors(cors);
-
-      
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -30,8 +28,10 @@ namespace OnlineShop.Web
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
             
+
+       
+
         }
     }
 }

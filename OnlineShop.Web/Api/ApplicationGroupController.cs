@@ -21,6 +21,7 @@ namespace OnlineShop.Web.Api
  
     public class ApplicationGroupController : ApiControllerBase
     {
+
         private IApplicationGroupService _appGroupService;
         private IApplicationRoleService _appRoleService;
         private ApplicationUserManager _userManager;

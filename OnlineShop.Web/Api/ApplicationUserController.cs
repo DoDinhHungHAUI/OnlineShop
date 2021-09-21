@@ -214,5 +214,21 @@ namespace OnlineShop.Web.Api
                 return request.CreateErrorResponse(HttpStatusCode.OK, string.Join(",", result.Errors));
         }
 
+        [HttpGet]
+        [Route("getUserRole/{username}/{password}")]
+
+        public async Task<HttpResponseMessage> GetUserRole(HttpRequestMessage request, string username , string password)
+        {
+
+            ApplicationUser user = await _userManager.FindAsync(username, password);
+            if (user != null)
+            {
+                var userRoles = _userManager.GetRolesAsync(user.Id);
+                return request.CreateResponse(HttpStatusCode.OK, userRoles);
+            }    
+
+            return request.CreateResponse(HttpStatusCode.BadRequest, "có lỗi trong quá trình xử lý");
+        }
+
     }
 }

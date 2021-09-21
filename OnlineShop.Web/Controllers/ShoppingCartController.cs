@@ -36,6 +36,10 @@ namespace OnlineShop.Web.Controllers
             {
                 Session[CommonConstants.SessionCart] = new List<ShoppingCartViewModel>();
             }
+
+            var url = System.Web.HttpContext.Current.Request.Url;
+            ViewBag.urlHome = url.Scheme + "://" + url.Host + ":" + url.Port;
+
             return View();
         }
 

@@ -6,11 +6,13 @@
 
 <div class="content-grids">
 
+    <h2 class="title text-center">Thông tin giỏ hàng</h2>
+
     <div class="single_top">
         <div class="single_grid">
             <div id="cartContent">
                 <table class="table">
-                    <thead>
+                    <thead class="thead-dark">
                         <tr>
                             <td>ID</td>
                             <td>Tên sản phẩm</td>
@@ -26,9 +28,13 @@
                 </table>
             </div>
 
-            <button class="btn btn-success" id="btnContinue">Tiếp tục mua hàng</button>
+            <a class="btn btn-success" id="btnContinue" href="@ViewBag.urlHome">
+                Tiếp tục mua hàng
+            </a>
+
+           @* <button class="btn btn-success" id="btnContinue">Tiếp tục mua hàng</button>*@
             <button class="btn btn-danger" id="btnDeleteAll">Xóa giỏ hàng</button>
-            <button class="btn btn" id="btnCheckout">Thanh toán</button>
+            <button class="btn btn-warning" id="btnCheckout">Thanh toán</button>
 
             <div class="pull-right">
                 Tổng tiền: <span id="lblTotalOrder"></span>
@@ -68,7 +74,7 @@
                                     <textarea value="" id="txtMessage form-control" style="font-size : 15px;">Message</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-warning" id="btnCreateOrder"><i class="fab fa-paypal"></i> Thanh toán</button>
+                                    <button type="button" class="btn btn-warning" id="btnCreateOrder"><i class="fab fa-paypal"></i> Xác nhận</button>
                                     @*<input type="button" id="btnCreateOrder" value="Thanh toán">*@
                                 </div>
 
@@ -94,7 +100,7 @@
     <td>{{ProductName}}</td>
     <td><img src="/Assets/Images/{{Image}}" height="50px" /></td>
     <td>{{PriceF}} Vnđ</td>
-    <td><input type="number" data-id="{{ProductId}}" data-price="{{Price}}" value="{{Quantity}}" class="input txtQuantity" /></td>
+    <td><input type="text" data-id="{{ProductId}}" data-price="{{Price}}" value="{{Quantity}}" class="input txtQuantity" /></td>
     <td id="amount_{{ProductId}}">{{Amount}} Vnđ</td>
     <td><button class="btn btn-danger btnDeleteItem" data-id="{{ProductId}}"><i class="fas fa-times"></i></button></td>
   </tr>
@@ -153,7 +159,66 @@
     .contact-form div {
         padding: 2px 0px;
     }
-  
+
+    h2.title {
+        color: #FE980F;
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0 15px;
+        text-transform: uppercase;
+        margin-bottom: 13px;
+        margin-top: 20px;
+        position: relative;
+    }
+
+    h2.title::before {
+        content: " ";
+        position: absolute;
+        background: rgb(255, 255, 255);
+        bottom: -6px;
+        width: 220px;
+        height: 30px;
+        z-index: -1;
+        left: 50%;
+        margin-left: -110px;
+    }
+
+    h2.title::after {
+        content: " ";
+        position: absolute;
+        border: 1px solid rgb(245, 245, 245);
+        bottom: 8px;
+        left: 0px;
+        width: 100%;
+        height: 0px;
+        z-index: -2;
+    }
+
+    .thead-dark {
+        background-color: #333333;
+        color: white;
+        font-weight: 700;
+    }
+
+    .btnDeleteItem {
+        padding: 3px 10px !important;
+    }
+
+    .pull-right{
+        font-weight : 700;
+    }
+    #lblTotalOrder {
+        color: coral;
+        font-weight: 700;
+        font-size: 15px;
+    }
+
+    #cartContent {
+        padding: 20px 0px;
+        font-size: 15px;
+        font-weight: 700;
+    }
 
 </style>
 

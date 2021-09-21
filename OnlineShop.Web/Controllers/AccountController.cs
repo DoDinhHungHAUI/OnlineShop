@@ -154,7 +154,7 @@ namespace OnlineShop.Web.Controllers
 
                 var adminUser = await _userManager.FindByEmailAsync(model.Email);
                 if (adminUser != null)
-                    await _userManager.AddToRolesAsync(adminUser.Id, new string[] { "UpdateUser" });
+                    await _userManager.AddToRolesAsync(adminUser.Id, new string[] { "SeenProduct" });
 
                 string content = System.IO.File.ReadAllText(Server.MapPath("/Assets/client/template/newuser.html"));
                 content = content.Replace("{{UserName}}", adminUser.FullName);
@@ -257,7 +257,6 @@ namespace OnlineShop.Web.Controllers
             }
         }
 
-   
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -295,6 +294,84 @@ namespace OnlineShop.Web.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+
+        public ActionResult EditUser()
+        {
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = _userManager.FindById(currentUserId);  //.Users.FirstOrDefault(x => x.Id == currentUserId);
+
+
+            EditUserViewModel user = new EditUserViewModel();
+
+            //UserEdit user = new UserEdit();
+
+            user.FullName = currentUser.FullName;
+            user.Email = currentUser.Email;
+            user.Address = currentUser.Address;
+            user.PhoneNumber = currentUser.PhoneNumber;
+            user.UserName = currentUser.UserName;
+          
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateGoogleCaptcha]
+        public async Task<ActionResult> EditUser(EditUserViewModel model)
+        {
+
+            ViewBag.Message = "";
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            ApplicationUser currentUser = _userManager.FindByEmail(model.Email);
+
+            ApplicationUser user = _userManager.Find(currentUser.UserName ,model.PassWordLast);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
+                ViewBag.Message = "Mật khẩu không chính xác";
+
+                return View(model);
+            }    
+
+            currentUser.FullName = model.FullName;
+            currentUser.Address = model.Address;
+            currentUser.PhoneNumber = model.PhoneNumber;
+            currentUser.UserName = model.UserName;
+
+            currentUser.PasswordHash = _userManager.PasswordHasher.HashPassword(model.PassWordNew);//Thay đổi mật khẩu
+
+            await _userManager.UpdateAsync(currentUser);
+
+            string content = System.IO.File.ReadAllText(Server.MapPath("/Assets/client/template/newuser.html"));
+            content = content.Replace("{{UserName}}", currentUser.FullName);
+            content = content.Replace("{{Link}}", ConfigHelper.currentLink + "dang-nhap.html");
+
+            MailHelper.SendMail(currentUser.Email, "Sửa đổi tài khoản thành công", content);
+
+            ViewData["SuccessMsg"] = "Sửa đổi thành công";
+
+            return View(model);
+        }
+
+        public ActionResult MyProfile()
+        {
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = _userManager.FindById(currentUserId);  //.Users.FirstOrDefault(x => x.Id == currentUserId);
+
+            MyProfileViewModel user = new MyProfileViewModel();
+
+            user.FullName = currentUser.FullName;
+            user.UserName = currentUser.UserName;
+            user.Email = currentUser.Email;
+            user.Address = currentUser.Address;
+            user.PhoneNumber = currentUser.PhoneNumber;
+
+            return View(user);
         }
 
     }

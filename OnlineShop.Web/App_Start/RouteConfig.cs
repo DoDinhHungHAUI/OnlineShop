@@ -29,14 +29,12 @@ namespace OnlineShop.Web
                 namespaces: new string[] { "OnlineShop.Web.Controllers" }
            );
 
-
             routes.MapRoute(
                 name: "Cart",
                 url: "gio-hang.html",
                 defaults: new { controller = "ShoppingCart", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "OnlineShop.Web.Controllers" }
             );
-
 
             routes.MapRoute(
                 name: "Login",
@@ -50,6 +48,21 @@ namespace OnlineShop.Web
                defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional },
                 namespaces: new string[] { "OnlineShop.Web.Controllers" }
            );
+
+            routes.MapRoute(
+               name: "MyProfile",
+               url: "Thong-tin-tai-khoan.html",
+               defaults: new { controller = "Account", action = "MyProfile", id = UrlParameter.Optional },
+                namespaces: new string[] { "OnlineShop.Web.Controllers" }
+           );
+
+            routes.MapRoute(
+                name: "EditUser",
+                url: "Sua-Tai-khoan.html",
+                defaults: new { controller = "Account", action = "EditUser", id = UrlParameter.Optional },
+                namespaces: new string[] { "OnlineShop.Web.Controllers" }
+            );
+
 
             routes.MapRoute(
                 name: "Contact",

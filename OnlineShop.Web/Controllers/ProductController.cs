@@ -25,6 +25,7 @@ namespace OnlineShop.Web.Controllers
         }
 
         // GET: Product
+        [Authorize(Roles = "ManagerProduct")]
         public ActionResult Detail(int id)
         {
             var productModel = _productService.GetById(id);
@@ -80,7 +81,6 @@ namespace OnlineShop.Web.Controllers
                 data = listNameSearch
             }, JsonRequestBehavior.AllowGet);
         }
-
 
         public ActionResult Search(string keyword, int page = 1, string sort = "")
         {

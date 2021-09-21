@@ -28,6 +28,8 @@ namespace OnlineShop.Web.App_Start
         {
             //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(OnlineShopDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -43,8 +45,8 @@ namespace OnlineShop.Web.App_Start
                 AllowInsecureHttp = true,
 
             });
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
             // Configure the sign in cookie
             app.UseCookieAuthentication(new CookieAuthenticationOptions
@@ -125,6 +127,8 @@ namespace OnlineShop.Web.App_Start
                 if (allowedOrigin == null) allowedOrigin = "*";
 
                 context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });*/
+
+                ///context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
                 UserManager<ApplicationUser> userManager = context.OwinContext.GetUserManager<UserManager<ApplicationUser>>();
                 ApplicationUser user;
